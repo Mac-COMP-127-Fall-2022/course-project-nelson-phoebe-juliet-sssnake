@@ -16,4 +16,14 @@ public class Board {
     public double getCanvasHeight(){
         return CANVAS_HEIGHT;
     }
+
+    public static void main(String[] args) {
+        Board board = new Board();
+        board.playSnake();
+    }
+
+    public void playSnake() {
+        FoodManager foodManager = new FoodManager(canvas);
+        foodManager.makeFood();
+    }
 }

@@ -2,37 +2,35 @@ package snakeGame;
 
 import edu.macalester.graphics.*;
 import java.awt.Color;
-import javax.swing.plaf.ColorUIResource;
 
 public class SnakePiece {
     //produces circles
-    private Ellipse snakePieceShape;
-    private double centerX, centerY, radius;
-    private final Color SNAKE_COLOR = new ColorUIResource(0, 0, 0);
-    public SnakePiece(double centerX, double centerY){
-        this.centerX = centerX;
-        this.centerY = centerY;
-        snakePieceShape = new Ellipse(centerX, centerY, radius, radius);
-        snakePieceShape.setFillColor(SNAKE_COLOR);
-        snakePieceShape.setStroked(false);
+    private Block snakePieceShape;
+    private double topLX, topLY;
+
+    public SnakePiece(double topLX, double topLY){
+        this.topLX = topLX;
+        this.topLY = topLY;
+        snakePieceShape = new Block(topLX, topLY, Color.green);
+    
     }
     //set all the following methods as private just so it will be easier to simplify later
-    private double getCenterX(){
-        return centerX;
+    private double gettopLX(){
+        return topLX;
     }
-    private double getCenterY(){
-        return centerY;
+    private double gettopLY(){
+        return topLY;
     }
-    private void setCenterX(double newCenterX){
-        centerX = newCenterX;
+    private void settopLX(double newtopLX){
+        topLX = newtopLX;
     }
-    private void setCenterY(double newCenterY){
-        centerY = newCenterY;
+    private void settopLY(double newtopLY){
+        topLY = newtopLY;
     }
-    private Ellipse getSnakePieceShape(){
-        return snakePieceShape;
+    private GraphicsObject getSnakePieceShape(){
+        return snakePieceShape.getShape();
     }
     private void renewSnakePieceLocation(){
-        snakePieceShape.setCenter(centerX, centerY);
+        snakePieceShape.setPosition();
     }
 }
