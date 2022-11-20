@@ -17,19 +17,18 @@ public class FoodManager {
         topLY = r.nextDouble()*(maxCenterY-minCenterY);
         food = new Food(0, 0);
         
-        this.canvas.add(food.getFoodShape());
+        this.canvas.add(food.getShape());
     }
     public void resetFood(){
         foodCenterX = minCenterX + r.nextDouble()*(maxCenterX-minCenterX);
         foodCenterY = minCenterY + r.nextDouble()*(maxCenterY-minCenterY);
-        food.getFoodShape().setCenter(foodCenterX,foodCenterY);
+        food.getShape().setCenter(foodCenterX,foodCenterY);
     }
 
     public void makeFood(CanvasWindow canvas) {
         foodCenterX = minCenterX + r.nextDouble()*(maxCenterX-minCenterX);
         foodCenterY = minCenterY + r.nextDouble()*(maxCenterY-minCenterY);
-        food.getFoodShape().setPosition(topLX, topLY);
-        canvas.add(food.getFoodShape());
-
+        food.getShape().setPosition(topLX, topLY);
+        canvas.add(food.getShape());
     }
 }

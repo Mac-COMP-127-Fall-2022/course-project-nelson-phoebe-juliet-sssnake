@@ -1,10 +1,9 @@
 package snakeGame;
 
-import edu.macalester.graphics.GraphicsObject;
-import edu.macalester.graphics.Rectangle;
+import edu.macalester.graphics.*;
 import java.awt.Color;
 
-public class Block{
+public abstract class Block{
 
     private double blockSize;
     private Rectangle shape;
@@ -12,20 +11,14 @@ public class Block{
     private double topLX;
     private double topLY;
 
-    public Block(double topLX, double topLY, Color color){
+    public Block(double topLX, double topLY){
         this.blockSize = 30;
 
         this.topLX = topLX;
         this.topLY = topLY;
 
         shape = new Rectangle(topLX, topLY, blockSize, blockSize);
-
-        // centerX = topLX + blockSize/2;
-        // centerY = topLY + blockSize/2;
-
-        shape.setFillColor(color);
         shape.setStroked(false);
-
     }    
     public GraphicsObject getShape(){
         return shape;
@@ -39,7 +32,7 @@ public class Block{
         this.topLX = newTopLX;
     }
 
-    public void setPosition() {
+    public void setPosition(double topLX, double topLY) {
         shape.setPosition(topLX, topLY);
     }
 
@@ -53,5 +46,9 @@ public class Block{
     public double getBlockSize(){
         return blockSize;
     }
+    public void setColor(Color color){
+        shape.setFillColor(color);
+    }
+
 
 }

@@ -3,37 +3,52 @@ package snakeGame;
 import edu.macalester.graphics.*;
 import java.awt.Color;
 
-import javax.swing.Box;
-import javax.swing.plaf.ColorUIResource;
+public class Food extends Block{
 
-public class Food {
-    //produce small circles
     private Block foodShape;
-    private double blockSize;
-    private final Color FOOD_COLOR = new ColorUIResource(0, 0, 0);
-
-    // private double centerX;
-    // private double centerY;
-
-    private double topLX;
-    private double topLY;
-
+    private double blockSize,topLX,topLY;
 
     public Food(double topLX, double topLY){
-
-        foodShape = new Block(topLX, topLY, Color.red);
+        super(topLX, topLY);
 
         this.topLX = topLX;
         this.topLY = topLY;
-
-        // centerX = topLX + blockSize/2;
-        // centerY = topLY + blockSize/2;
-
-        // foodShape.setFillColor(FOOD_COLOR);
-        // foodShape.setStroked(false);
+        foodShape.setColor(Color.RED);
     }
 
-    public GraphicsObject getFoodShape() {
+    @Override
+    public GraphicsObject getShape() {
         return foodShape.getShape();
     }
+
+    @Override
+    public void setTopLY(double newTopLY) {
+        this.topLY = newTopLY;
+    }
+
+    @Override
+    public void setTopLX(double newTopLX) {
+        this.topLX = newTopLX;
+    }
+
+    @Override
+    public void setPosition(double topLX, double topLY) {
+        foodShape.setPosition(topLX, topLY);
+    }
+
+    @Override
+    public double getTopLY() {
+        return topLY;
+    }
+
+    @Override
+    public double getTopLX() {
+        return topLX;
+    }
+
+    @Override
+    public double getBlockSize(){
+        return blockSize;
+    }
+
 }

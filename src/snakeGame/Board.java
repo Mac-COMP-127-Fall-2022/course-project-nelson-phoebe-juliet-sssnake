@@ -24,6 +24,6 @@ public class Board {
 
     public void playSnake() {
         FoodManager foodManager = new FoodManager(canvas);
-        foodManager.makeFood();
+        foodManager.makeFood(canvas);
     }
 }
