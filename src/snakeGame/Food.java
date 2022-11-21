@@ -10,9 +10,10 @@ public class Food extends Block{
 
     public Food(double topLX, double topLY){
         super(topLX, topLY);
-
+        
         this.topLX = topLX;
         this.topLY = topLY;
+        foodShape = new Block(topLX, topLY);
         foodShape.setColor(Color.RED);
     }
 

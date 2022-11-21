@@ -3,7 +3,7 @@ package snakeGame;
 import edu.macalester.graphics.*;
 import java.awt.Color;
 
-public abstract class Block{
+public class Block{
 
     private double blockSize;
     private Rectangle shape;
