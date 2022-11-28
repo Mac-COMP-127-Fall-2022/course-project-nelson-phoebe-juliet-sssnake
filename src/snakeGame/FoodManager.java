@@ -19,6 +19,8 @@ public class FoodManager {
         this.canvas = canvas;
 
         this.gridPointList = gridPointList;
+        //remove points of the snake
+
         food = new Food(0, 0);
         foodPos = (new Point(0,0));
     }
@@ -28,7 +30,7 @@ public class FoodManager {
         foodPos = gridPointList.get(randomInt);
         setFoodPos(food);
 
-        
+        //if // food position is at the same position as snake then do again
 
         canvas.add(food.getShape());
     }

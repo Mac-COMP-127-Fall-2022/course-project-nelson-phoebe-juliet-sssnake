@@ -34,7 +34,7 @@ public class Board {
                 gridPointList.add(new Point(column, row));
             }
         }
-        System.out.println(gridPointList);
+        // System.out.println(gridPointList);
         return gridPointList;
     }
 
@@ -43,40 +43,53 @@ public class Board {
         board.playSnake();
     }
 
-    public void showGridPoints() {
+    // public void showGridPoints() {
         
 
-        int i = 0;
-        for (Point point : gridPointList) {
+    //     int i = 0;
+    //     for (Point point : gridPointList) {
             
-            Block rect = new Block(point.getX(), point.getY());
+    //         Block rect = new Block(point.getX(), point.getY());
 
-            if (i ==0 ){
-                i =1;
-                rect.setColor(Color.RED);
-            }
+    //         if (i ==0 ){
+    //             i =1;
+    //             rect.setColor(Color.RED);
+    //         }
 
-            else if (i == 1) {
-                i = 2;
-                rect.setColor(Color.GREEN);
-            }
+    //         else if (i == 1) {
+    //             i = 2;
+    //             rect.setColor(Color.GREEN);
+    //         }
     
-            else {
-                i = 0;
-                rect.setColor(Color.BLUE);
-            }
+    //         else {
+    //             i = 0;
+    //             rect.setColor(Color.BLUE);
+    //         }
 
-            // rect.setColor(new Color(60,100,i));
-            canvas.add(rect.getShape());
-        }
-    }
+    //         // rect.setColor(new Color(60,100,i));
+    //         canvas.add(rect.getShape());
+    //     }
+    // }
 
 
 
     public void playSnake() {
+
+        boolean running = true;
+
         gridPointList = getGridPointList();
-        showGridPoints();
+        // showGridPoints();
         FoodManager foodManager = new FoodManager(canvas, gridPointList);
         foodManager.makeFood();
+
+        SnakeManager snakeManager = new SnakeManager(gridPointList, canvas);
+        snakeManager.startSnake();
+        
+        while (running){
+            snakeManager.moveSnake();
+            canvas.pause(1000);
+            canvas.draw();
+        }
+
     }
 }
