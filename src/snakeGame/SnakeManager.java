@@ -2,7 +2,10 @@ package snakeGame;
 
 import java.util.ArrayList;
 
+import java.lang.String;
+
 import edu.macalester.graphics.*;
+import edu.macalester.graphics.events.Key;
 
 public class SnakeManager {
     private ArrayList<SnakePiece> snake = new ArrayList<>();
@@ -12,14 +15,12 @@ public class SnakeManager {
     private CanvasWindow canvas;
     private SnakeHead snakeHead;
 
-    private boolean up, down, left, right;
+    private String direction;
+
 
     public SnakeManager(ArrayList<Point> gridPointList, CanvasWindow canvas){
 
-        up = true;
-        right = false;
-        down = false;
-        left = false;
+        direction = "up";
 
         this.gridPointList = gridPointList;
        
@@ -37,29 +38,79 @@ public class SnakeManager {
     }
     public void startSnake(){
         canvas.add(snakeHead.getShape());
+    }
 
+    public String checkCollision(FoodManager foodManager){
+        if(snakeHead.getTopLX() == foodManager.getFoodX() && snakeHead.getTopLY() == foodManager.getFoodY()) {
+            return "food";
+        }
+
+        for (SnakePiece snakePiece : snake) {
+            if(snakeHead.getShape().getElementAt(headX, headY) == snakePiece.getShape()) {
+                return "snake";
+            }
+        }
+
+        if (headX < 0 || headY > canvas.getHeight() || headX > canvas.getWidth() || headY < 0) {
+            return "border";
+        }
+
+        else {
+            return "no";
+        }
+    }
+
+    public void changeDirection(Key key) {
+        if( key == Key.LEFT_ARROW) {
+            if(direction != "right") {
+                direction = "left";
+            }
+        }
+
+        if( key == Key.RIGHT_ARROW) {
+            if(direction != "left") {
+                direction = "right";
+            }
+        }
+
+        if( key == Key.DOWN_ARROW) {
+            if(direction != "up") {
+                direction = "down";
+            }
+        }
+        if( key == Key.UP_ARROW) {
+            if(direction != "down") {
+                direction = "up";
+            }
+        }
     }
 
     public void moveSnake() {
-        if(up){
-            snakeHead.setPosition(headX, headY+snakeHead.getBlockSize());
-            System.out.println("XXXX");
+        if(direction == "up"){
+            headY -= snakeHead.getBlockSize();
         }
 
-        if(down){
-            snakeHead.setPosition(headX, headY-snakeHead.getBlockSize());
+        if(direction == "down"){
+            headY += snakeHead.getBlockSize();
         }
 
-        if(left){
-            snakeHead.setPosition(headX-snakeHead.getBlockSize(), headY);
+        if(direction == "left"){
+            headX -= snakeHead.getBlockSize();
         }
 
-        if(right){
-            snakeHead.setPosition(headX+snakeHead.getBlockSize(), headY);
+        if(direction == "right"){
+            headX += snakeHead.getBlockSize();
         }
 
-        headX = snakeHead.getTopLX();
-        headY = snakeHead.getTopLY();
+        snakeHead.setPosition(headX, headY);
+    }
+
+    public double getSnakeHeadX() {
+        return headX;
+    }
+
+    public double getSnakeHeadY() {
+        return headY;
     }
 
 }

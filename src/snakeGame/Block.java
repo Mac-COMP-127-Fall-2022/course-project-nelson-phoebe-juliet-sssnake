@@ -34,6 +34,7 @@ public class Block{
 
     public void setPosition(double topLX, double topLY) {
         shape.setPosition(topLX, topLY);
+
     }
 
     public double getTopLY() {

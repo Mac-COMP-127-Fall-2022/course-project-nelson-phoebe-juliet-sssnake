@@ -84,12 +84,33 @@ public class Board {
 
         SnakeManager snakeManager = new SnakeManager(gridPointList, canvas);
         snakeManager.startSnake();
-        
-        while (running){
+
+        canvas.onKeyDown(event -> {
+            snakeManager.changeDirection(event.getKey());
+        });
+
+        canvas.draw();
+        canvas.pause(3000);
+
+
+        canvas.animate(() -> {
+            canvas.pause(100);
             snakeManager.moveSnake();
-            canvas.pause(1000);
+
+            String collisionTest = snakeManager.checkCollision(foodManager);
+
+            if(collisionTest != "no"){
+
+                if (collisionTest == "food"){
+                    foodManager.resetFood();
+                }
+            };
+
+            // foodManager.resetFood();
             canvas.draw();
-        }
+
+        });
+
 
     }
 }

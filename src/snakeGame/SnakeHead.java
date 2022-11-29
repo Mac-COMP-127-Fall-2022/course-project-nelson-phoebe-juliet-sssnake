@@ -14,6 +14,7 @@ public class SnakeHead extends Block{
         this.topLX = topLX;
         this.topLY = topLY;
         snakeHeadShape = new Block(topLX, topLY);
+        this.blockSize = snakeHeadShape.getBlockSize();
         snakeHeadShape.setColor(Color.green);
     }
     
@@ -35,6 +36,8 @@ public class SnakeHead extends Block{
     @Override
     public void setPosition(double topLX, double topLY) {
         snakeHeadShape.setPosition(topLX, topLY);
+        this.topLX = topLX;
+        this.topLY = topLY;
     }
 
     @Override
