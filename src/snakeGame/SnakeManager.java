@@ -88,14 +88,14 @@ public class SnakeManager {
     public void moveSnake() {
         //for each snake piece set position to the previous one's
         for(int pieceNumber=snake.size(); pieceNumber>0;pieceNumber--){
-            if(pieceNumber>0){
-                snake.get(pieceNumber).setPosition(snake.get(pieceNumber-1).getTopLX(), snake.get(pieceNumber-1).getTopLY());
-                snake.get(pieceNumber).setTopLX(snake.get(pieceNumber-1).getTopLX());
-                snake.get(pieceNumber).setTopLY(snake.get(pieceNumber-1).getTopLY());
+            if(pieceNumber>1){
+                snake.get(pieceNumber-1).setPosition(snake.get(pieceNumber-2).getTopLX(), snake.get(pieceNumber-2).getTopLY());
+                snake.get(pieceNumber-1).setTopLX(snake.get(pieceNumber-2).getTopLX());
+                snake.get(pieceNumber-1).setTopLY(snake.get(pieceNumber-2).getTopLY());
             }else{
-                snake.get(pieceNumber).setPosition(headX, headY);
-                snake.get(pieceNumber).setTopLX(headX);
-                snake.get(pieceNumber).setTopLY(headY);
+                snake.get(pieceNumber-1).setPosition(headX, headY);
+                snake.get(pieceNumber-1).setTopLX(headX);
+                snake.get(pieceNumber-1).setTopLY(headY);
             }
         }
         //the bug is here
