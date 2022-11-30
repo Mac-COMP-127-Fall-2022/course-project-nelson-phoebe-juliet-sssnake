@@ -87,13 +87,18 @@ public class SnakeManager {
 
     public void moveSnake() {
         //for each snake piece set position to the previous one's
-        for(int pieceNumber=0; pieceNumber<snake.size();pieceNumber++){
-            if(pieceNumber==0){
-                snake.get(pieceNumber).setPosition(headX, headY);
-            }else{
+        for(int pieceNumber=snake.size(); pieceNumber>0;pieceNumber--){
+            if(pieceNumber>0){
                 snake.get(pieceNumber).setPosition(snake.get(pieceNumber-1).getTopLX(), snake.get(pieceNumber-1).getTopLY());
+                snake.get(pieceNumber).setTopLX(snake.get(pieceNumber-1).getTopLX());
+                snake.get(pieceNumber).setTopLY(snake.get(pieceNumber-1).getTopLY());
+            }else{
+                snake.get(pieceNumber).setPosition(headX, headY);
+                snake.get(pieceNumber).setTopLX(headX);
+                snake.get(pieceNumber).setTopLY(headY);
             }
         }
+        //the bug is here
 
         if(direction == "up"){
             headY -= snakeHead.getBlockSize();
@@ -125,14 +130,34 @@ public class SnakeManager {
 
     public void snakeGrow(FoodManager foodManager){
         SnakePiece snakeBody;
-        if(snake.size()==0){
-            snakeBody = new SnakePiece(getSnakeHeadX(), getSnakeHeadY());
-        }else{
-            snakeBody = new SnakePiece(snake.get(snake.size()-1).getTopLX(), snake.get(snake.size()-1).getTopLY());
+        if(direction == "up"){
+            if(snake.size()==0){
+                snakeBody = new SnakePiece(getSnakeHeadX(), getSnakeHeadY()+snakeHead.getBlockSize());
+            }else{
+                snakeBody = new SnakePiece(snake.get(snake.size()-1).getTopLX(), snake.get(snake.size()-1).getTopLY()+snakeHead.getBlockSize());
+            }
+        }else if(direction == "down"){
+            if(snake.size()==0){
+                snakeBody = new SnakePiece(getSnakeHeadX(), getSnakeHeadY()-snakeHead.getBlockSize());
+            }else{
+                snakeBody = new SnakePiece(snake.get(snake.size()-1).getTopLX(), snake.get(snake.size()-1).getTopLY()-snakeHead.getBlockSize());
+            }
+        }else if(direction == "left"){
+            if(snake.size()==0){
+                snakeBody = new SnakePiece(getSnakeHeadX()+snakeHead.getBlockSize(), getSnakeHeadY());
+            }else{
+                snakeBody = new SnakePiece(snake.get(snake.size()-1).getTopLX()+snakeHead.getBlockSize(), snake.get(snake.size()-1).getTopLY());
+            }
+        }else{//direction == "right"
+            if(snake.size()==0){
+                snakeBody = new SnakePiece(getSnakeHeadX()-snakeHead.getBlockSize(), getSnakeHeadY());
+            }else{
+                snakeBody = new SnakePiece(snake.get(snake.size()-1).getTopLX()-snakeHead.getBlockSize(), snake.get(snake.size()-1).getTopLY());
+            }
         }
         snake.add(snakeBody);
         canvas.add(snakeBody.getShape());
-        System.out.println("getfood");
+        System.out.println("grow");
     }
 }
 
