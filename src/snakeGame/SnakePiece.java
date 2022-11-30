@@ -10,10 +10,11 @@ public class SnakePiece extends Block{
 
     public SnakePiece(double topLX, double topLY){
         super(topLX, topLY);
-        
         this.topLX = topLX;
         this.topLY = topLY;
-        snakePieceShape.setColor(Color.green);
+        snakePieceShape = new Block(topLX, topLY);
+        this.blockSize = snakePieceShape.getBlockSize();
+        snakePieceShape.setColor(Color.GRAY);
     }
     
     @Override

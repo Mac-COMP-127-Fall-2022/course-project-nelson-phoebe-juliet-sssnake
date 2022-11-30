@@ -14,7 +14,7 @@ public class SnakeManager {
     private double headX, headY;
     private CanvasWindow canvas;
     private SnakeHead snakeHead;
-
+    
     private String direction;
 
 
@@ -86,6 +86,15 @@ public class SnakeManager {
     }
 
     public void moveSnake() {
+        //for each snake piece set position to the previous one's
+        for(int pieceNumber=0; pieceNumber<snake.size();pieceNumber++){
+            if(pieceNumber==0){
+                snake.get(pieceNumber).setPosition(headX, headY);
+            }else{
+                snake.get(pieceNumber).setPosition(snake.get(pieceNumber-1).getTopLX(), snake.get(pieceNumber-1).getTopLY());
+            }
+        }
+
         if(direction == "up"){
             headY -= snakeHead.getBlockSize();
         }
@@ -102,6 +111,7 @@ public class SnakeManager {
             headX += snakeHead.getBlockSize();
         }
 
+        
         snakeHead.setPosition(headX, headY);
     }
 
@@ -113,4 +123,16 @@ public class SnakeManager {
         return headY;
     }
 
+    public void snakeGrow(FoodManager foodManager){
+        SnakePiece snakeBody;
+        if(snake.size()==0){
+            snakeBody = new SnakePiece(getSnakeHeadX(), getSnakeHeadY());
+        }else{
+            snakeBody = new SnakePiece(snake.get(snake.size()-1).getTopLX(), snake.get(snake.size()-1).getTopLY());
+        }
+        snake.add(snakeBody);
+        canvas.add(snakeBody.getShape());
+        System.out.println("getfood");
+    }
 }
+

@@ -95,6 +95,8 @@ public class Board {
 
         canvas.animate(() -> {
             canvas.pause(100);
+
+            
             snakeManager.moveSnake();
 
             String collisionTest = snakeManager.checkCollision(foodManager);
@@ -103,14 +105,9 @@ public class Board {
 
                 if (collisionTest == "food"){
                     foodManager.resetFood();
+                    snakeManager.snakeGrow(foodManager);
                 }
             };
-
-            // foodManager.resetFood();
-            canvas.draw();
-
         });
-
-
     }
 }
