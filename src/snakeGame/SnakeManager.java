@@ -10,6 +10,7 @@ import edu.macalester.graphics.events.Key;
 public class SnakeManager {
     private ArrayList<SnakePiece> snake = new ArrayList<>();
     private double headX, headY,newHeadX,newHeadY;
+    private int score=0;
     private CanvasWindow canvas;
     private SnakeHead snakeHead;
     private boolean move = true;
@@ -37,6 +38,7 @@ public class SnakeManager {
 
     public String checkCollision(FoodManager foodManager){
         if(snakeHead.getTopLX() == foodManager.getFoodX() && snakeHead.getTopLY() == foodManager.getFoodY()) {
+            score+=10;
             return "food";
         }
 
@@ -172,6 +174,9 @@ public class SnakeManager {
     
     public void stop(){
         move=false;
+    }
+    public int getScore(){
+        return score;
     }
 }
 

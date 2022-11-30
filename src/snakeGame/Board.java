@@ -10,6 +10,8 @@ public class Board {
     //the snake game
     private CanvasWindow canvas;
     private static final int CANVAS_WIDTH = 610, CANVAS_HEIGHT = 610, border = 5;
+    private boolean running = true;
+    private GraphicsText win = new GraphicsText("win!");
     
     
 
@@ -38,6 +40,12 @@ public class Board {
         // System.out.println(gridPointList);
         return gridPointList;
     }
+    private void win(){
+        running = false;
+        canvas.removeAll();
+        win.setCenter(CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
+        canvas.add(win);
+    }
     
 
     public static void main(String[] args) {
@@ -49,7 +57,7 @@ public class Board {
 
     public void playSnake() {
 
-        boolean running = true;
+        
 
         gridPointList = getGridPointList();
         // showGridPoints();
@@ -68,24 +76,29 @@ public class Board {
 
 
         canvas.animate(() -> {
-            canvas.pause(200);
+            if(running){
+                canvas.pause(200);
 
-            
-            snakeManager.moveSnake();
+                
+                snakeManager.moveSnake();
 
-            String collisionTest = snakeManager.checkCollision(foodManager);
+                String collisionTest = snakeManager.checkCollision(foodManager);
 
-            if(collisionTest != "no"){
+                if(collisionTest != "no"){
 
-                if (collisionTest == "food"){
-                    foodManager.resetFood();
-                    snakeManager.snakeGrow(foodManager);
+                    if (collisionTest == "food"){
+                        foodManager.resetFood();
+                        snakeManager.snakeGrow(foodManager);
+                    }
+
+                    if (collisionTest == "snake"||collisionTest == "border"){
+                        snakeManager.stop();
+                    }
+                };
+                if(snakeManager.getScore()>=300){
+                    win();
                 }
-
-                if (collisionTest == "snake"||collisionTest == "border"){
-                    snakeManager.stop();
-                }
-            };
+            }
         });
     }
 }
