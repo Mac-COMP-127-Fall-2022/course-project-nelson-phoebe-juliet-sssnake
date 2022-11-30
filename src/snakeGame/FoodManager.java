@@ -41,15 +41,31 @@ public class FoodManager {
         return food;
     }
 
-    public void resetFood() {
-        canvas.remove(food.getShape());
-        int randomInt = r.nextInt(gridPointList.size());
-        foodPos = gridPointList.get(randomInt);
-        setFoodPos(food);
-
+    public void resetFood(ArrayList<SnakePiece> snake,SnakeHead head) {
+        if(foodIsOnSnake(snake, head)){
+            resetFood(snake, head);
+        }else{
+            canvas.remove(food.getShape());
+            int randomInt = r.nextInt(gridPointList.size());
+            foodPos = gridPointList.get(randomInt);
+            setFoodPos(food);
+        }
+        
         //if // food position is at the same position as snake then do again
 
         canvas.add(food.getShape());
+    }
+
+    private boolean foodIsOnSnake(ArrayList<SnakePiece> snake,SnakeHead head){
+        for(SnakePiece s:snake){
+            if(food.getTopLX()==s.getTopLX()&&food.getTopLY()==s.getTopLY()){
+                return true;
+            }
+        }
+        if(food.getTopLX()==head.getTopLX()&&food.getTopLY()==head.getTopLY()){
+            return true;
+        }
+        return false;
     }
 
     public void setFoodPos(Food food) {

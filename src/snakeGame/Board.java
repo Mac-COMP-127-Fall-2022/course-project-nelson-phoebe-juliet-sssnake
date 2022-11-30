@@ -87,7 +87,7 @@ public class Board {
                 if(collisionTest != "no"){
 
                     if (collisionTest == "food"){
-                        foodManager.resetFood();
+                        foodManager.resetFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
                         snakeManager.snakeGrow(foodManager);
                     }
 

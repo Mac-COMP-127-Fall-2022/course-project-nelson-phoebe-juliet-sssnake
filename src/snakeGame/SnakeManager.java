@@ -178,5 +178,11 @@ public class SnakeManager {
     public int getScore(){
         return score;
     }
+    public ArrayList<SnakePiece> getSnake(){
+        return snake;
+    }
+    public SnakeHead getSnakeHead(){
+        return snakeHead;
+    }
 }
 
