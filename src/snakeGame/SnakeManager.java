@@ -9,20 +9,19 @@ import edu.macalester.graphics.events.Key;
 
 public class SnakeManager {
     private ArrayList<SnakePiece> snake = new ArrayList<>();
-    private double snakeLength;
-    private ArrayList<Point> gridPointList;
-    private double headX, headY;
+    private double headX, headY,newHeadX,newHeadY;
     private CanvasWindow canvas;
     private SnakeHead snakeHead;
-    
+    private boolean move = true;
     private String direction;
+    private double border;
 
 
-    public SnakeManager(ArrayList<Point> gridPointList, CanvasWindow canvas){
+    public SnakeManager(ArrayList<Point> gridPointList, CanvasWindow canvas, double border){
 
         direction = "up";
 
-        this.gridPointList = gridPointList;
+        this.border = border;
        
         snakeHead = new SnakeHead(gridPointList.get(50).getX(), gridPointList.get(50).getY() );
 
@@ -31,10 +30,6 @@ public class SnakeManager {
 
         this.canvas = canvas;
 
-        // snakeLength=5;
-        // for(int l=1; l<snakeLength; l++){
-        //     snake.add(new SnakePiece(l, l));
-        // }
     }
     public void startSnake(){
         canvas.add(snakeHead.getShape());
@@ -46,12 +41,12 @@ public class SnakeManager {
         }
 
         for (SnakePiece snakePiece : snake) {
-            if(snakeHead.getShape().getElementAt(headX, headY) == snakePiece.getShape()) {
+            if(snakeHead.getTopLX()==snakePiece.getTopLX()&&snakeHead.getTopLY()==snakePiece.getTopLY()){
                 return "snake";
             }
         }
 
-        if (headX < 0 || headY > canvas.getHeight() || headX > canvas.getWidth() || headY < 0) {
+        if (headX < border || headY > canvas.getHeight()-border-snakeHead.getBlockSize()|| headX > canvas.getWidth()- border- snakeHead.getBlockSize() || headY < border) {
             return "border";
         }
 
@@ -86,38 +81,54 @@ public class SnakeManager {
     }
 
     public void moveSnake() {
-        //for each snake piece set position to the previous one's
-        for(int pieceNumber=snake.size(); pieceNumber>0;pieceNumber--){
-            if(pieceNumber>1){
-                snake.get(pieceNumber-1).setPosition(snake.get(pieceNumber-2).getTopLX(), snake.get(pieceNumber-2).getTopLY());
-                snake.get(pieceNumber-1).setTopLX(snake.get(pieceNumber-2).getTopLX());
-                snake.get(pieceNumber-1).setTopLY(snake.get(pieceNumber-2).getTopLY());
-            }else{
-                snake.get(pieceNumber-1).setPosition(headX, headY);
-                snake.get(pieceNumber-1).setTopLX(headX);
-                snake.get(pieceNumber-1).setTopLY(headY);
+
+        if(move){
+            if(ifHeadOnBound()){
+                //for each snake piece set position to the previous one's
+                for(int pieceNumber=snake.size(); pieceNumber>0;pieceNumber--){
+                    if(pieceNumber>1){
+                        snake.get(pieceNumber-1).setPosition(snake.get(pieceNumber-2).getTopLX(), snake.get(pieceNumber-2).getTopLY());
+                        snake.get(pieceNumber-1).setTopLX(snake.get(pieceNumber-2).getTopLX());
+                        snake.get(pieceNumber-1).setTopLY(snake.get(pieceNumber-2).getTopLY());
+                    }else{
+                        snake.get(pieceNumber-1).setPosition(headX, headY);
+                        snake.get(pieceNumber-1).setTopLX(headX);
+                        snake.get(pieceNumber-1).setTopLY(headY);
+                    }
+                }
+                headY = newHeadY;
+                headX = newHeadX;
+                snakeHead.setPosition(headX, headY);
             }
         }
-        //the bug is here
+    }
 
+    private boolean ifHeadOnBound(){
         if(direction == "up"){
-            headY -= snakeHead.getBlockSize();
+            newHeadY = headY - snakeHead.getBlockSize();
+            newHeadX = headX;
         }
 
         if(direction == "down"){
-            headY += snakeHead.getBlockSize();
+            newHeadY = headY + snakeHead.getBlockSize();
+            newHeadX = headX;
         }
 
         if(direction == "left"){
-            headX -= snakeHead.getBlockSize();
+            newHeadX = headX - snakeHead.getBlockSize();
+            newHeadY = headY;
         }
 
         if(direction == "right"){
-            headX += snakeHead.getBlockSize();
+            newHeadX = headX + snakeHead.getBlockSize();
+            newHeadY = headY;
         }
 
-        
-        snakeHead.setPosition(headX, headY);
+        if(newHeadX>=border&&newHeadX<=canvas.getWidth()-border-snakeHead.getBlockSize()&&newHeadY>=border&&newHeadY<=canvas.getHeight()-border-snakeHead.getBlockSize()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public double getSnakeHeadX() {
@@ -157,7 +168,10 @@ public class SnakeManager {
         }
         snake.add(snakeBody);
         canvas.add(snakeBody.getShape());
-        System.out.println("grow");
+    }
+    
+    public void stop(){
+        move=false;
     }
 }
 
