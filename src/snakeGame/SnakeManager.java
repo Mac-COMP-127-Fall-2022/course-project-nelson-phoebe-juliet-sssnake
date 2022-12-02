@@ -15,6 +15,7 @@ public class SnakeManager {
     private int score=0;
     private CanvasWindow canvas;
     private SnakeHead snakeHead;
+    private ImageManager imageManager;
     private boolean move = true;
     private String direction;
     private double border;
@@ -32,6 +33,8 @@ public class SnakeManager {
         headY = snakeHead.getTopLY();
 
         this.canvas = canvas;
+
+        ImageManager imageManager = new ImageManager();
 
     }
     public void startSnake(){
@@ -82,6 +85,10 @@ public class SnakeManager {
                 direction = "up";
             }
         }
+    }
+
+    public void setSnakeHeadImg(){
+        snakeHead.setImgPath(imageManager.getSnakeHeadImage(direction));
     }
 
 

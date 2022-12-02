@@ -25,6 +25,7 @@ public class FoodManager {
         foodPos = (new Point(0,0));
 
         food = new Food(foodPos.getX(), foodPos.getY());
+        // food.setImgPath("food/bbug.png");
         
     }
 
