@@ -5,6 +5,7 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class FoodManager {
     //randomly put the rectangle in different places
@@ -56,8 +57,8 @@ public class FoodManager {
         canvas.add(food.getShape());
     }
 
-    private boolean foodIsOnSnake(ArrayList<SnakePiece> snake,SnakeHead head){
-        for(SnakePiece s:snake){
+    private boolean foodIsOnSnake(ArrayList<SnakePiece> snake, SnakeHead head){
+        for(SnakePiece s: snake){
             if(food.getTopLX()==s.getTopLX()&&food.getTopLY()==s.getTopLY()){
                 return true;
             }

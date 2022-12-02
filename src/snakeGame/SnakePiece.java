@@ -14,7 +14,7 @@ public class SnakePiece extends Block{
         this.topLY = topLY;
         snakePieceShape = new Block(topLX, topLY);
         this.blockSize = snakePieceShape.getBlockSize();
-        snakePieceShape.setColor(Color.GRAY);
+        // snakePieceShape.setColor(Color.GRAY);
     }
     
     @Override

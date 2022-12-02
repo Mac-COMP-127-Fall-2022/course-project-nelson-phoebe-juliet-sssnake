@@ -1,7 +1,8 @@
 package snakeGame;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.lang.String;
 
 import edu.macalester.graphics.*;
@@ -9,6 +10,7 @@ import edu.macalester.graphics.events.Key;
 
 public class SnakeManager {
     private ArrayList<SnakePiece> snake = new ArrayList<>();
+    private Map<SnakePiece, String> snakeDirection = new HashMap<>(); 
     private double headX, headY,newHeadX,newHeadY;
     private int score=0;
     private CanvasWindow canvas;
@@ -81,6 +83,7 @@ public class SnakeManager {
             }
         }
     }
+
 
     public void moveSnake() {
 
@@ -169,6 +172,7 @@ public class SnakeManager {
             }
         }
         snake.add(snakeBody);
+        snakeDirection.put(snakeBody, direction);
         canvas.add(snakeBody.getShape());
     }
     
@@ -183,6 +187,9 @@ public class SnakeManager {
     }
     public SnakeHead getSnakeHead(){
         return snakeHead;
+    }
+    public String getSnakeBodyDirection(SnakePiece snake){
+        return snakeDirection.get(snake);
     }
 }
 

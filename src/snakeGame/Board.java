@@ -61,8 +61,9 @@ public class Board {
 
         gridPointList = getGridPointList();
         // showGridPoints();
-        FoodManager foodManager = new FoodManager(canvas, gridPointList);
-        foodManager.makeFood();
+
+        // FoodManager foodManager = new FoodManager(canvas, gridPointList);
+        // foodManager.makeFood();
 
         SnakeManager snakeManager = new SnakeManager(gridPointList, canvas,border);
         snakeManager.startSnake();
@@ -82,19 +83,19 @@ public class Board {
                 
                 snakeManager.moveSnake();
 
-                String collisionTest = snakeManager.checkCollision(foodManager);
+                // String collisionTest = snakeManager.checkCollision(foodManager);
 
-                if(collisionTest != "no"){
+                // if(collisionTest != "no"){
 
-                    if (collisionTest == "food"){
-                        foodManager.resetFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
-                        snakeManager.snakeGrow(foodManager);
-                    }
+                //     if (collisionTest == "food"){
+                //         foodManager.resetFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
+                //         snakeManager.snakeGrow(foodManager);
+                //     }
 
-                    if (collisionTest == "snake"||collisionTest == "border"){
-                        snakeManager.stop();
-                    }
-                };
+                //     if (collisionTest == "snake"||collisionTest == "border"){
+                //         snakeManager.stop();
+                //     }
+                // };
                 if(snakeManager.getScore()>=300){
                     win();
                 }

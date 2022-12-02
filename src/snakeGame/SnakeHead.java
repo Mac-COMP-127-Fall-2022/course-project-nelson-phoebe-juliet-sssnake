@@ -15,7 +15,7 @@ public class SnakeHead extends Block{
         this.topLY = topLY;
         snakeHeadShape = new Block(topLX, topLY);
         this.blockSize = snakeHeadShape.getBlockSize();
-        snakeHeadShape.setColor(Color.green);
+        snakeHeadShape.setImgPath("snake-parts/bsnake_head_up.png");
     }
     
     @Override

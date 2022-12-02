@@ -6,7 +6,7 @@ import java.awt.Color;
 public class Block{
 
     private double blockSize;
-    private Rectangle shape;
+    private Image shape;
 
     private double topLX;
     private double topLY;
@@ -17,8 +17,8 @@ public class Block{
         this.topLX = topLX;
         this.topLY = topLY;
 
-        shape = new Rectangle(topLX, topLY, blockSize, blockSize);
-        shape.setStroked(false);
+        shape = new Image(topLX, topLY);
+        // shape.setStroked(false);
     }    
     public GraphicsObject getShape(){
         return shape;
@@ -47,9 +47,14 @@ public class Block{
     public double getBlockSize(){
         return blockSize;
     }
-    public void setColor(Color color){
-        shape.setFillColor(color);
+
+    public void setImgPath(String path){
+        shape.setImagePath(path);
     }
+    
+    // public void setColor(Color color){
+    //     shape.setFillColor(color);
+    // }
 
 
 }
