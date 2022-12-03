@@ -57,8 +57,6 @@ public class Board {
 
     public void playSnake() {
 
-        
-
         gridPointList = getGridPointList();
         // showGridPoints();
 
@@ -96,6 +94,7 @@ public class Board {
                         snakeManager.stop();
                     }
                 };
+
                 if(snakeManager.getScore()>=300){
                     win();
                 }

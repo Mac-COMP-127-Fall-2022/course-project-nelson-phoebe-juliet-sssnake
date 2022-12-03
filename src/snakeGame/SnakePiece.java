@@ -2,11 +2,14 @@ package snakeGame;
 
 import edu.macalester.graphics.*;
 import java.awt.Color;
+import java.util.Map;
 
 public class SnakePiece extends Block{
 
     private Block snakePieceShape;
     private double blockSize,topLX,topLY;
+
+    private ImageManager imageManager = new ImageManager();
 
     public SnakePiece(double topLX, double topLY){
         super(topLX, topLY);
@@ -35,6 +38,19 @@ public class SnakePiece extends Block{
     @Override
     public void setPosition(double topLX, double topLY) {
         snakePieceShape.setPosition(topLX, topLY);
+    }
+
+    // Map<SnakePiece, String> snakeDirection
+    public void setSnakePieceImg(String direction){
+        snakePieceShape.setImgPath(imageManager.getSnakePieceImage(this, direction));
+    }
+
+    public void setSnakeEndImg(String direction){
+        snakePieceShape.setImgPath(imageManager.getSnakeEndImage(this, direction));
+    }
+
+    public void setSnakeCurveImg(String directionBefore, String directionAfter){
+        snakePieceShape.setImgPath(imageManager.getSnakeCurveImage(this, directionBefore, directionAfter));
     }
 
     @Override

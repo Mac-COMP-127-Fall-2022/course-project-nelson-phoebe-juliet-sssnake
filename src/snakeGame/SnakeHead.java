@@ -7,6 +7,7 @@ public class SnakeHead extends Block{
 
     private Block snakeHeadShape;
     private double blockSize,topLX,topLY;
+    private ImageManager imageManager = new ImageManager();
 
     public SnakeHead(double topLX, double topLY){
         super(topLX, topLY);
@@ -22,6 +23,12 @@ public class SnakeHead extends Block{
     public GraphicsObject getShape() {
         return snakeHeadShape.getShape();
     }
+
+
+    public void setSnakeHeadImg(String direction){
+        snakeHeadShape.setImgPath(imageManager.getSnakeHeadImage(this, direction));
+    }
+
 
     @Override
     public void setTopLY(double newTopLY) {
