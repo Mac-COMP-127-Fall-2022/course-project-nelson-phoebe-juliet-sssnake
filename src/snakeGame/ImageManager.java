@@ -63,28 +63,28 @@ public class ImageManager {
 
     public String getSnakeCurveImage(SnakePiece snake, String directionBefore, String directionAfter){
 
-        if (directionBefore == "up" && directionAfter == "left") {
+        if (directionBefore == "down" && directionAfter == "left") {
             return "snake-parts/bsnake_curve_up-left.png"; 
-        } if (directionBefore == "up" && directionAfter == "right") {
+        } if (directionBefore == "down" && directionAfter == "right") {
             return "snake-parts/bsnake_curve_up-right.png";
         }
 
-        if (directionBefore == "down" && directionAfter == "left") {
+        if (directionBefore == "up" && directionAfter == "left") {
             return "snake-parts/bsnake_curve_down-left.png";
-        } if (directionBefore == "down" && directionAfter == "right") {
+        } if (directionBefore == "up" && directionAfter == "right") {
             return "snake-parts/bsnake_curve_down-right.png";
         } 
         
         if (directionBefore == "left" && directionAfter == "down") {
-            return "snake-parts/bsnake_curve_left-down.png";
+            return "snake-parts/bsnake_curve_right-down.png";
         } if (directionBefore == "left" && directionAfter == "up") {
-            return "snake-parts/bsnake_curve_left-up.png";
+            return "snake-parts/bsnake_curve_right-up.png";
         } 
         
         if (directionBefore == "right" && directionAfter == "down") {
-            return "snake-parts/bsnake_curve_right-down.png";
+            return "snake-parts/bsnake_curve_left-down.png";
         } if (directionBefore == "right" && directionAfter == "up") {
-            return "snake-parts/bsnake_curve_right-up.png";
+            return "snake-parts/bsnake_curve_left-up.png";
         } 
 
         else {
