@@ -5,7 +5,6 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.*;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class FoodManager {
     //randomly put the rectangle in different places
@@ -29,33 +28,16 @@ public class FoodManager {
         
     }
 
-    public void makeFood() {
-        int randomInt = r.nextInt(gridPointList.size());
-        foodPos = gridPointList.get(randomInt);
-        setFoodPos(food);
-
-        //if // food position is at the same position as snake then do again
-
+    public void makeFood(ArrayList<SnakePiece> snake, SnakeHead head) { 
+        randomlySetFoodPos(food);
+        while (foodIsOnSnake(snake, head)) {
+            randomlySetFoodPos(food);
+        }
         canvas.add(food.getShape());
     }
 
     public Food getFood() {
         return food;
-    }
-
-    public void resetFood(ArrayList<SnakePiece> snake,SnakeHead head) {
-        if(foodIsOnSnake(snake, head)){
-            resetFood(snake, head);
-        }else{
-            canvas.remove(food.getShape());
-            int randomInt = r.nextInt(gridPointList.size());
-            foodPos = gridPointList.get(randomInt);
-            setFoodPos(food);
-        }
-        
-        //if // food position is at the same position as snake then do again
-
-        canvas.add(food.getShape());
     }
 
     private boolean foodIsOnSnake(ArrayList<SnakePiece> snake, SnakeHead head){
@@ -70,7 +52,9 @@ public class FoodManager {
         return false;
     }
 
-    public void setFoodPos(Food food) {
+    public void randomlySetFoodPos(Food food) {
+        int randomInt = r.nextInt(gridPointList.size());
+        foodPos = gridPointList.get(randomInt);
         food.getShape().setPosition(foodPos);
     }
 

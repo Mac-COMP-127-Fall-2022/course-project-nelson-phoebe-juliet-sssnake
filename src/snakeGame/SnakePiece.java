@@ -1,8 +1,7 @@
 package snakeGame;
 
 import edu.macalester.graphics.*;
-import java.awt.Color;
-import java.util.Map;
+
 
 public class SnakePiece extends Block{
 
@@ -19,7 +18,6 @@ public class SnakePiece extends Block{
 
         snakePieceShape = new Block(topLX, topLY);
         this.blockSize = snakePieceShape.getBlockSize();
-        // snakePieceShape.setColor(Color.GRAY);
     }
     
     @Override

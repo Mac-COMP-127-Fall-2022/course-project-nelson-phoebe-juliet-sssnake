@@ -12,7 +12,6 @@ public class SnakeManager {
     private ArrayList<SnakePiece> snake = new ArrayList<>();
     private Map<SnakePiece, String> snakeDirection = new HashMap<>();
     private double headX, headY, newHeadX, newHeadY;
-    private int score = 0;
     private CanvasWindow canvas;
     private SnakeHead snakeHead;
     private ImageManager imageManager;
@@ -33,7 +32,6 @@ public class SnakeManager {
         direction = "up";
 
         this.imageManager = imageManager;
-
         this.level = imageManager.getLevel();
 
         this.border = border;
@@ -58,7 +56,6 @@ public class SnakeManager {
 
     public String checkCollision(FoodManager foodManager) {
         if (snakeHead.getTopLX() == foodManager.getFoodX() && snakeHead.getTopLY() == foodManager.getFoodY()) {
-            score += 10;
             return "food";
         }
 
@@ -244,10 +241,6 @@ public class SnakeManager {
     }
     public void stop() {
         move = false;
-    }
-
-    public int getScore() {
-        return score;
     }
 
     public ArrayList<SnakePiece> getSnake() {

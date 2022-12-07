@@ -1,11 +1,7 @@
 package snakeGame;
 
 import edu.macalester.graphics.*;
-
-import java.awt.Color;
 import java.util.ArrayList;
-
-
 
 public class Board {
     //the snake game
@@ -18,9 +14,6 @@ public class Board {
     private boolean restartScreen = false;
     private boolean difficultyScreen = false;
     private boolean newGame = false;
-
-    private int score = 0;
-    private GraphicsText Score;
 
     Image startScreenImage = new Image(0, 0, "start-difficulty-gameover/start.png");
     Image difficultyImage = new Image(0, 0, "start-difficulty-gameover/difficulty.png");
@@ -39,7 +32,6 @@ public class Board {
         canvas = new CanvasWindow("Snake Game", CANVAS_WIDTH, CANVAS_HEIGHT);
         gridPointList = new ArrayList<Point>();
         this.level = "r";
-        Score = new GraphicsText("Score " + score);
     }
 
     public double getCanvasWidth(){
@@ -105,9 +97,9 @@ public class Board {
     }
 
     private void win(){
-        canvas.removeAll();
-        win.setCenter(CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
-        canvas.add(win);
+        // canvas.removeAll();
+        // win.setCenter(CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
+        // canvas.add(win);
     }
 
     public void playSnake() {
@@ -117,14 +109,10 @@ public class Board {
         canvas.add(bgImage);
 
         FoodManager foodManager = new FoodManager(canvas, gridPointList);
-        foodManager.makeFood();
-
+        ScoreManager scoreManager = new ScoreManager();
         ImageManager imageManager = new ImageManager(level);
-
         SnakeManager snakeManager = new SnakeManager(gridPointList, canvas, border, foodManager, imageManager);
-
-        Score.setCenter(canvas.getWidth()*.9, canvas.getHeight()*.95);
-        canvas.add(Score);
+        foodManager.makeFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
         
 
         // create a small body before game starts
@@ -177,15 +165,19 @@ public class Board {
                     canvas.pause(1000);
                     newGame = false;
                 }
-
                 canvas.pause(100);
+
+                //cannot renew score
+                scoreManager.getScore().setCenter(canvas.getWidth()*.9, canvas.getHeight()*.95);
+                canvas.add(scoreManager.getScore());
+
                 snakeManager.moveSnake();
                 String collisionTest = snakeManager.checkCollision(foodManager);
                 if(collisionTest != "no"){
                     if (collisionTest == "food"){
-                        foodManager.resetFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
+                        foodManager.makeFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
                         snakeManager.snakeGrow(foodManager);
-                        score += 10;
+                        scoreManager.addScore();
                     }
 
                     if (collisionTest == "snake"||collisionTest == "border"){
@@ -193,7 +185,7 @@ public class Board {
                     }
                 }
 
-                if(snakeManager.getScore()>=300){
+                if(scoreManager.win()){
                     win();
                 }
 

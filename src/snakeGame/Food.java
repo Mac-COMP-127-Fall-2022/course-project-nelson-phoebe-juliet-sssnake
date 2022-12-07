@@ -1,7 +1,6 @@
 package snakeGame;
 
 import edu.macalester.graphics.*;
-import java.awt.Color;
 
 public class Food extends Block{
 
