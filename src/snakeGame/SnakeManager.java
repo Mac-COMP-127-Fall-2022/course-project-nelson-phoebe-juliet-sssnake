@@ -17,28 +17,38 @@ public class SnakeManager {
     private SnakeHead snakeHead;
     private ImageManager imageManager = new ImageManager();
     private boolean move = true;
+
     private String direction;
+    private String newDirection;
+
     private double border;
+    
+    private String level;
 
 
-    public SnakeManager(ArrayList<Point> gridPointList, CanvasWindow canvas, double border) {
 
+    public SnakeManager(ArrayList<Point> gridPointList, CanvasWindow canvas, double border, FoodManager foodManager, String level) {
+
+        newDirection = "up";
         direction = "up";
+
+        this.level = level;
 
         this.border = border;
 
+        this.canvas = canvas;
+
         snakeHead = new SnakeHead(gridPointList.get(50).getX(), gridPointList.get(50).getY());
+
+
+        this.canvas.add(snakeHead.getShape());
+
+        snakeGrow(foodManager);
+        snakeGrow(foodManager);
 
         headX = snakeHead.getTopLX();
         headY = snakeHead.getTopLY();
 
-        this.canvas = canvas;
-
-
-    }
-
-    public void startSnake() {
-        canvas.add(snakeHead.getShape());
     }
 
     public String checkCollision(FoodManager foodManager) {
@@ -66,32 +76,29 @@ public class SnakeManager {
     public void changeDirection(Key key) {
         if (key == Key.LEFT_ARROW) {
             if (direction != "right") {
-                direction = "left";
+                newDirection = "left";
             }
         }
         if (key == Key.RIGHT_ARROW) {
             if (direction != "left") {
-                direction = "right";
+                newDirection = "right";
             }
         }
 
         if (key == Key.DOWN_ARROW) {
             if (direction != "up") {
-                direction = "down";
+                newDirection = "down";
             }
         }
         if (key == Key.UP_ARROW) {
             if (direction != "down") {
-                direction = "up";
+                newDirection = "up";
             }
         }
-
-        snakeHead.setSnakeHeadImg(direction);
     }
 
 
     public void moveSnake() {
-
         if (move) {
             if (ifHeadOnBound()) {
                 // for each snake piece set position to the previous one's
@@ -102,9 +109,9 @@ public class SnakeManager {
                         snake.get(pieceNumber-1).setTopLX(headX);
                         snake.get(pieceNumber-1).setTopLY(headY);
 
-                    // if there is only one snake piece, set that image to butt
-                        if (snake.size() == 1) {
-                            snake.get(pieceNumber-1).setSnakeEndImg(direction);
+
+                        if (direction != snakeDirection.get(snake.get(pieceNumber-1))){
+                            snake.get(pieceNumber-1).setSnakeCurveImg(snakeDirection.get(snake.get(pieceNumber-1)), direction);;
                         } else {
                             snake.get(pieceNumber-1).setSnakePieceImg(direction);
                         }
@@ -135,10 +142,9 @@ public class SnakeManager {
 
                 } // for loop
 
-                    headY = newHeadY;
-                    headX = newHeadX;
-                    snakeHead.setPosition(headX, headY);
-
+                headY = newHeadY;
+                headX = newHeadX;
+                snakeHead.setPosition(headX, headY);
 
             } // if head not on bounds
         } // if moving
@@ -147,6 +153,11 @@ public class SnakeManager {
 
 
     private boolean ifHeadOnBound() {
+
+        if (level == "g" || level == "r") {
+            direction = newDirection;
+        }
+
         if (direction == "up") {
             newHeadY = headY - snakeHead.getBlockSize();
             newHeadX = headX;
@@ -166,6 +177,13 @@ public class SnakeManager {
             newHeadX = headX + snakeHead.getBlockSize();
             newHeadY = headY;
         }
+
+        if (level == "b") {
+            direction = newDirection;
+        }
+        
+        snakeHead.setSnakeHeadImg(direction);
+        
 
         if (newHeadX >= border && newHeadX <= canvas.getWidth() - border - snakeHead.getBlockSize()
             && newHeadY >= border && newHeadY <= canvas.getHeight() - border - snakeHead.getBlockSize()) {
@@ -218,8 +236,8 @@ public class SnakeManager {
         snake.add(snakeBody);
         snakeDirection.put(snakeBody, direction);
         canvas.add(snakeBody.getShape());
-    }
 
+    }
     public void stop() {
         move = false;
     }

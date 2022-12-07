@@ -9,11 +9,9 @@ import java.util.ArrayList;
 public class Board {
     //the snake game
     private CanvasWindow canvas;
-    private static final int CANVAS_WIDTH = 610, CANVAS_HEIGHT = 610, border = 5;
+    private static final int CANVAS_WIDTH = 640, CANVAS_HEIGHT = 720, border = 20;
     private boolean running = true;
     private GraphicsText win = new GraphicsText("win!");
-    
-    
 
     private ArrayList<Point> gridPointList;
 
@@ -32,8 +30,8 @@ public class Board {
         return border;
     }
     private ArrayList<Point> getGridPointList() {
-        for (int column = border; column < canvas.getWidth()-border; column+=((canvas.getWidth()-border*2)/20)) {
-            for (int row = border; row < canvas.getWidth()-border; row+=((canvas.getHeight()-border*2)/20)) {
+        for (int column = border; column < 620-border; column+=((620-border*2)/20)) {
+            for (int row = border; row < 620-border; row+=((620-border*2)/20)) {
                 gridPointList.add(new Point(column, row));
             }
         }
@@ -54,37 +52,34 @@ public class Board {
     }
 
 
-
     public void playSnake() {
 
         gridPointList = getGridPointList();
-        // showGridPoints();
 
         FoodManager foodManager = new FoodManager(canvas, gridPointList);
         foodManager.makeFood();
 
-        SnakeManager snakeManager = new SnakeManager(gridPointList, canvas,border);
-        snakeManager.startSnake();
+        SnakeManager snakeManager = new SnakeManager(gridPointList, canvas, border, foodManager, "g");
+
+        snakeManager.moveSnake();
+        snakeManager.moveSnake();
 
         canvas.onKeyDown(event -> {
             snakeManager.changeDirection(event.getKey());
         });
 
         canvas.draw();
-        canvas.pause(3000);
 
+        canvas.pause(1000);
 
         canvas.animate(() -> {
             if(running){
                 canvas.pause(200);
 
-                
                 snakeManager.moveSnake();
 
                 String collisionTest = snakeManager.checkCollision(foodManager);
-
                 if(collisionTest != "no"){
-
                     if (collisionTest == "food"){
                         foodManager.resetFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
                         snakeManager.snakeGrow(foodManager);
