@@ -92,7 +92,6 @@ public class Board {
                 gridPointList.add(new Point(column, row));
             }
         }
-        // System.out.println(gridPointList);
         return gridPointList;
     }
 

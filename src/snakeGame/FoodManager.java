@@ -29,10 +29,7 @@ public class FoodManager {
     }
 
     public void makeFood(ArrayList<SnakePiece> snake, SnakeHead head) { 
-        randomlySetFoodPos(food);
-        while (foodIsOnSnake(snake, head)) {
-            randomlySetFoodPos(food);
-        }
+        randomlySetFoodPos(food,snake,head);
         canvas.add(food.getShape());
     }
 
@@ -40,21 +37,21 @@ public class FoodManager {
         return food;
     }
 
-    private boolean foodIsOnSnake(ArrayList<SnakePiece> snake, SnakeHead head){
-        for(SnakePiece s: snake){
-            if(food.getTopLX()==s.getTopLX()&&food.getTopLY()==s.getTopLY()){
-                return true;
+    public void randomlySetFoodPos(Food food,ArrayList<SnakePiece> snake, SnakeHead head) {
+        ArrayList<Point> foodPointList = new ArrayList<Point>();
+        foodPointList = gridPointList;
+        for(Point p: foodPointList){
+            for(SnakePiece s: snake){
+                if(p.getX()==s.getTopLX()&&p.getY()==s.getTopLY()){
+                    foodPointList.remove(p);
+                }
+            }
+            if(p.getX()==head.getTopLX()&&p.getY()==head.getTopLY()){
+                foodPointList.remove(p);
             }
         }
-        if(food.getTopLX()==head.getTopLX()&&food.getTopLY()==head.getTopLY()){
-            return true;
-        }
-        return false;
-    }
-
-    public void randomlySetFoodPos(Food food) {
-        int randomInt = r.nextInt(gridPointList.size());
-        foodPos = gridPointList.get(randomInt);
+        int randomInt = r.nextInt(foodPointList.size());
+        foodPos = foodPointList.get(randomInt);
         food.getShape().setPosition(foodPos);
     }
 
