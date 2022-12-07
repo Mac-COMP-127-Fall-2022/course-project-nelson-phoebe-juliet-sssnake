@@ -24,8 +24,6 @@ public class Board {
 
     private String level;
 
-    private GraphicsText win = new GraphicsText("win!");
-
     private ArrayList<Point> gridPointList;
 
     public Board(){
@@ -111,12 +109,13 @@ public class Board {
         ScoreManager scoreManager = new ScoreManager();
         ImageManager imageManager = new ImageManager(level);
         SnakeManager snakeManager = new SnakeManager(gridPointList, canvas, border, foodManager, imageManager);
-        foodManager.makeFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
         
 
         // create a small body before game starts
         snakeManager.moveSnake();
         snakeManager.moveSnake();
+
+        foodManager.makeFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
 
         canvas.onKeyDown(event -> {
             snakeManager.changeDirection(event.getKey());
@@ -156,7 +155,7 @@ public class Board {
             }
 
             if(gameScreen){
-
+                
                 if(newGame) {
                     canvas.remove(difficultyImage);
                     snakeManager.moveSnake();

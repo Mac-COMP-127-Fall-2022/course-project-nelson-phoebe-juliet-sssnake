@@ -39,11 +39,11 @@ public class FoodManager {
 
     public void randomlySetFoodPos(Food food,ArrayList<SnakePiece> snake, SnakeHead head) {
         ArrayList<Point> foodPointList = new ArrayList<Point>();
-        foodPointList = gridPointList;
-        for(Point p: foodPointList){
+        for(Point p: gridPointList){
             for(SnakePiece s: snake){
-                if(p.getX()==s.getTopLX()&&p.getY()==s.getTopLY()){
-                    foodPointList.remove(p);
+                System.out.println(s.getTopLX() + s.getTopLY());
+                if(p.getX()!=s.getTopLX()&&p.getY()!=s.getTopLY()){
+                    foodPointList.add(p);
                 }
             }
             if(p.getX()==head.getTopLX()&&p.getY()==head.getTopLY()){
