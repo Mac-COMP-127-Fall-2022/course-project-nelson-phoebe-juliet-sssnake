@@ -8,13 +8,15 @@ public class SnakePiece extends Block{
 
     private Block snakePieceShape;
     private double blockSize,topLX,topLY;
+    private ImageManager imageManager;
 
-    private ImageManager imageManager = new ImageManager();
-
-    public SnakePiece(double topLX, double topLY){
+    public SnakePiece(double topLX, double topLY, ImageManager imageManager){
         super(topLX, topLY);
         this.topLX = topLX;
         this.topLY = topLY;
+
+        this.imageManager = imageManager;
+
         snakePieceShape = new Block(topLX, topLY);
         this.blockSize = snakePieceShape.getBlockSize();
         // snakePieceShape.setColor(Color.GRAY);
@@ -43,6 +45,7 @@ public class SnakePiece extends Block{
     // Map<SnakePiece, String> snakeDirection
     public void setSnakePieceImg(String direction){
         snakePieceShape.setImgPath(imageManager.getSnakePieceImage(this, direction));
+        
     }
 
     public void setSnakeEndImg(String direction){

@@ -4,39 +4,63 @@ import edu.macalester.graphics.*;
 import java.awt.Color;
 
 
+
+
 public class ImageManager {
 
-    public ImageManager() {
+    private String level;
 
+    public ImageManager(String level) {
+        this.level = level;
     }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public String getImagePathString(String folder, String picture) {
+        System.out.println(folder + "/" + level + picture + ".png");
+        return folder + "/" + level + picture + ".png";
+    }
+
+    public String getBgImage(){
+        return getImagePathString("level-backgrounds", "_bg");
+    }
+
+
     public String getSnakeHeadImage(SnakeHead snake, String direction){
 
         if(direction == "up"){
-            return "snake-parts/bsnake_head_up.png";
+            return getImagePathString("snake-parts", "snake_head_up");
         }
         if(direction == "down"){
-            return "snake-parts/bsnake_head_down.png";
+            return getImagePathString("snake-parts", "snake_head_down");
         }
         if(direction == "left"){
-            return "snake-parts/bsnake_head_left.png";
+            return getImagePathString("snake-parts", "snake_head_left");
         }
         else {
-            return "snake-parts/bsnake_head_right.png";
+            return getImagePathString("snake-parts", "snake_head_right");
         }
+        
     }
 
     public String getSnakePieceImage(SnakePiece snake, String direction){
         if(direction == "up"){
-            return "snake-parts/bsnake_body_up.png";
+            return getImagePathString("snake-parts", "snake_body_up");
         }
         if(direction == "down"){
-            return "snake-parts/bsnake_body_down.png";
+            return getImagePathString("snake-parts", "snake_body_down");
         }
         if(direction == "left"){
-            return "snake-parts/bsnake_body_left.png";
+            return getImagePathString("snake-parts", "snake_body_left");
         }
         if(direction == "right"){
-            return "snake-parts/bsnake_body_right.png";
+            return getImagePathString("snake-parts", "snake_body_right");
         }
         else  {
             return null;
@@ -45,16 +69,16 @@ public class ImageManager {
 
     public String getSnakeEndImage(SnakePiece snake, String direction){
         if(direction == "up"){
-            return "snake-parts/bsnake_end_up.png";
+            return getImagePathString("snake-parts", "snake_end_up");
         }
         if(direction == "down"){
-            return "snake-parts/bsnake_end_down.png";
+            return getImagePathString("snake-parts", "snake_end_down");
         }
         if(direction == "left"){
-            return "snake-parts/bsnake_end_left.png";
+            return getImagePathString("snake-parts", "snake_end_left");
         }
         if(direction == "right"){
-            return "snake-parts/bsnake_end_right.png";
+            return getImagePathString("snake-parts", "snake_end_right");
         }
         else  {
             return null;
@@ -64,27 +88,27 @@ public class ImageManager {
     public String getSnakeCurveImage(SnakePiece snake, String directionBefore, String directionAfter){
 
         if (directionBefore == "down" && directionAfter == "left") {
-            return "snake-parts/bsnake_curve_up-left.png"; 
+            return getImagePathString("snake-parts", "snake_curve_up-left");
         } if (directionBefore == "down" && directionAfter == "right") {
-            return "snake-parts/bsnake_curve_up-right.png";
+            return getImagePathString("snake-parts", "snake_curve_up-right");
         }
 
         if (directionBefore == "up" && directionAfter == "left") {
-            return "snake-parts/bsnake_curve_down-left.png";
+            return getImagePathString("snake-parts", "snake_curve_down-left");
         } if (directionBefore == "up" && directionAfter == "right") {
-            return "snake-parts/bsnake_curve_down-right.png";
+            return getImagePathString("snake-parts", "snake_curve_down-right");
         } 
         
         if (directionBefore == "left" && directionAfter == "down") {
-            return "snake-parts/bsnake_curve_right-down.png";
+            return getImagePathString("snake-parts", "snake_curve_right-down");
         } if (directionBefore == "left" && directionAfter == "up") {
-            return "snake-parts/bsnake_curve_right-up.png";
+            return getImagePathString("snake-parts", "snake_curve_right-up");
         } 
         
         if (directionBefore == "right" && directionAfter == "down") {
-            return "snake-parts/bsnake_curve_left-down.png";
+            return getImagePathString("snake-parts", "snake_curve_left-down");
         } if (directionBefore == "right" && directionAfter == "up") {
-            return "snake-parts/bsnake_curve_left-up.png";
+            return getImagePathString("snake-parts", "snake_curve_left-up");
         } 
 
         else {

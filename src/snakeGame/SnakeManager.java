@@ -15,7 +15,7 @@ public class SnakeManager {
     private int score = 0;
     private CanvasWindow canvas;
     private SnakeHead snakeHead;
-    private ImageManager imageManager = new ImageManager();
+    private ImageManager imageManager;
     private boolean move = true;
 
     private String direction;
@@ -27,19 +27,20 @@ public class SnakeManager {
 
 
 
-    public SnakeManager(ArrayList<Point> gridPointList, CanvasWindow canvas, double border, FoodManager foodManager, String level) {
+    public SnakeManager(ArrayList<Point> gridPointList, CanvasWindow canvas, double border, FoodManager foodManager, ImageManager imageManager) {
 
         newDirection = "up";
         direction = "up";
 
-        this.level = level;
+        this.imageManager = imageManager;
+
+        this.level = imageManager.getLevel();
 
         this.border = border;
 
         this.canvas = canvas;
 
-        snakeHead = new SnakeHead(gridPointList.get(50).getX(), gridPointList.get(50).getY());
-
+        snakeHead = new SnakeHead(gridPointList.get(50).getX(), gridPointList.get(50).getY(), imageManager);
 
         this.canvas.add(snakeHead.getShape());
 
@@ -49,6 +50,10 @@ public class SnakeManager {
         headX = snakeHead.getTopLX();
         headY = snakeHead.getTopLY();
 
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 
     public String checkCollision(FoodManager foodManager) {
@@ -183,10 +188,9 @@ public class SnakeManager {
         }
         
         snakeHead.setSnakeHeadImg(direction);
-        
 
         if (newHeadX >= border && newHeadX <= canvas.getWidth() - border - snakeHead.getBlockSize()
-            && newHeadY >= border && newHeadY <= canvas.getHeight() - border - snakeHead.getBlockSize()) {
+            && newHeadY >= border+80 && newHeadY <= canvas.getHeight() - border - snakeHead.getBlockSize()) {
             return true;
         } else {
             return false;
@@ -205,31 +209,31 @@ public class SnakeManager {
         SnakePiece snakeBody;
         if (direction == "up") {
             if (snake.size() == 0) {
-                snakeBody = new SnakePiece(getSnakeHeadX(), getSnakeHeadY() + snakeHead.getBlockSize());
+                snakeBody = new SnakePiece(getSnakeHeadX(), getSnakeHeadY() + snakeHead.getBlockSize(), imageManager);
             } else {
                 snakeBody = new SnakePiece(snake.get(snake.size() - 1).getTopLX(),
-                    snake.get(snake.size() - 1).getTopLY() + snakeHead.getBlockSize());
+                    snake.get(snake.size() - 1).getTopLY() + snakeHead.getBlockSize(), imageManager);
             }
         } else if (direction == "down") {
             if (snake.size() == 0) {
-                snakeBody = new SnakePiece(getSnakeHeadX(), getSnakeHeadY() - snakeHead.getBlockSize());
+                snakeBody = new SnakePiece(getSnakeHeadX(), getSnakeHeadY() - snakeHead.getBlockSize(), imageManager);
             } else {
                 snakeBody = new SnakePiece(snake.get(snake.size() - 1).getTopLX(),
-                    snake.get(snake.size() - 1).getTopLY() - snakeHead.getBlockSize());
+                    snake.get(snake.size() - 1).getTopLY() - snakeHead.getBlockSize(), imageManager);
             }
         } else if (direction == "left") {
             if (snake.size() == 0) {
-                snakeBody = new SnakePiece(getSnakeHeadX() + snakeHead.getBlockSize(), getSnakeHeadY());
+                snakeBody = new SnakePiece(getSnakeHeadX() + snakeHead.getBlockSize(), getSnakeHeadY(), imageManager);
             } else {
                 snakeBody = new SnakePiece(snake.get(snake.size() - 1).getTopLX() + snakeHead.getBlockSize(),
-                    snake.get(snake.size() - 1).getTopLY());
+                    snake.get(snake.size() - 1).getTopLY(), imageManager);
             }
         } else {// direction == "right"
             if (snake.size() == 0) {
-                snakeBody = new SnakePiece(getSnakeHeadX() - snakeHead.getBlockSize(), getSnakeHeadY());
+                snakeBody = new SnakePiece(getSnakeHeadX() - snakeHead.getBlockSize(), getSnakeHeadY(), imageManager);
             } else {
                 snakeBody = new SnakePiece(snake.get(snake.size() - 1).getTopLX() - snakeHead.getBlockSize(),
-                    snake.get(snake.size() - 1).getTopLY());
+                    snake.get(snake.size() - 1).getTopLY(), imageManager);
             }
         }
 

@@ -49,6 +49,7 @@ public class Block{
 
     public void setImgPath(String path){
         shape.setImagePath(path);
+        
     }
     
     // public void setColor(Color color){
