@@ -8,6 +8,7 @@ public class Board {
     private CanvasWindow canvas;
     private Image bg;
     private static final int CANVAS_WIDTH = 640, CANVAS_HEIGHT = 720, border = 20;
+    private int speed = 100;
 
     private boolean gameScreen = false;
     private boolean startScreen = true;
@@ -78,7 +79,7 @@ public class Board {
     }
 
     public String clickOnDifficulty() {
-        System.out.println(clickPos);
+        
         // check if click is on the a difficulty button, if so, which
         if (clickPos.getY() > 373 && clickPos.getY() < 565) {
             if (clickPos.getX() > 26 && clickPos.getX() < 211) {
@@ -110,15 +111,28 @@ public class Board {
         // canvas.add(win);
     }
 
+    private void setLevel(String level){
+        if (level == "g"){
+            speed = 200;
+        }
+        if (level == "b"){
+            speed = 150;
+        }
+        if (level == "r"){
+            speed = 75;
+        }
+    }
+
+
     public void playSnake() {
 
         gridPointList = getGridPointList();
 
         canvas.add(bgImage);
 
-        FoodManager foodManager = new FoodManager(canvas, gridPointList);
-        ScoreManager scoreManager = new ScoreManager();
         ImageManager imageManager = new ImageManager(level);
+        FoodManager foodManager = new FoodManager(canvas, gridPointList,level, imageManager);
+        ScoreManager scoreManager = new ScoreManager(canvas);
         SnakeManager snakeManager = new SnakeManager(gridPointList, canvas, border, foodManager, imageManager);
         
 
@@ -169,7 +183,9 @@ public class Board {
                     this.level = difficultySeclection;
                     imageManager.setLevel(difficultySeclection);
                     snakeManager.setLevel(difficultySeclection);
+                    foodManager.setLevel(difficultySeclection);
                     bgImage.setImagePath(imageManager.getBgImage());
+                    setLevel(difficultySeclection);
                     gameScreen = true;
                     newGame = true;
                     difficultyScreen = false;
@@ -185,19 +201,18 @@ public class Board {
                     canvas.pause(1000);
                     newGame = false;
                 }
-                canvas.pause(100);
+                canvas.pause(speed);
 
                 //cannot renew score
-                scoreManager.getScore().setCenter(canvas.getWidth()*.9, canvas.getHeight()*.95);
-                canvas.add(scoreManager.getScore());
+                scoreManager.addScoreToCanvas(canvas);
 
                 snakeManager.moveSnake();
                 String collisionTest = snakeManager.checkCollision(foodManager);
                 if(collisionTest != "no"){
                     if (collisionTest == "food"){
+                        scoreManager.addScore(foodManager.getFoodType());
                         foodManager.makeFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
                         snakeManager.snakeGrow(foodManager);
-                        scoreManager.addScore();
                     }
 
                     if (collisionTest == "snake"||collisionTest == "border"){

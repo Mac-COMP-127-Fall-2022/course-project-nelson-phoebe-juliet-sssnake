@@ -17,7 +17,6 @@ public class ImageManager {
     }
 
     public String getImagePathString(String folder, String picture) {
-        System.out.println(folder + "/" + level + picture + ".png");
         return folder + "/" + level + picture + ".png";
     }
 
@@ -109,4 +108,13 @@ public class ImageManager {
             return null;
         }
         
-    }}
+    }
+    public String getFoodImage(String food){
+
+        if(food  == "bug"){
+            return getImagePathString("food", "bug");
+        } else{
+            return getImagePathString("food", "fruit");
+        }
+    }
+}

@@ -14,9 +14,21 @@ public class FoodManager {
     private ArrayList<Point> gridPointList;
     private Point foodPos;
 
+    private ImageManager imageManager;
 
-    public FoodManager(CanvasWindow canvas, ArrayList<Point> gridPointList){
+    private String foodType;
+
+    private String level;
+
+
+    public FoodManager(CanvasWindow canvas, ArrayList<Point> gridPointList, String level, ImageManager imageManager){
         this.canvas = canvas;
+
+        this.level = level;
+
+        this.imageManager = imageManager;
+
+        
 
         this.gridPointList = gridPointList;
         //remove points of the snake
@@ -29,8 +41,27 @@ public class FoodManager {
     }
 
     public void makeFood(ArrayList<SnakePiece> snake, SnakeHead head) { 
+        randomlySetFoodType();
         randomlySetFoodPos(food,snake,head);
+        food.getFoodShape().setImgPath(imageManager.getFoodImage(foodType));
         canvas.add(food.getShape());
+    }
+
+    private void randomlySetFoodType(){
+        int randomInt = r.nextInt(100);
+        if(randomInt<=25){
+            foodType = "bug";
+        }else{
+            foodType = "fruit";
+        }
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getFoodType() {
+        return foodType;
     }
 
     public Food getFood() {

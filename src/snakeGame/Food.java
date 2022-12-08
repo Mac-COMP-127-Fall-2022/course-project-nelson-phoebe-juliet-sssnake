@@ -22,6 +22,10 @@ public class Food extends Block{
         return foodShape.getShape();
     }
 
+    public Block getFoodShape() {
+        return foodShape;
+    }
+
     @Override
     public void setTopLY(double newTopLY) {
         this.topLY = newTopLY;
