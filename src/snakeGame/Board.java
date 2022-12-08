@@ -16,12 +16,15 @@ public class Board {
     private boolean difficultyScreen = false;
     private boolean instructionScreen = false;
     private boolean newGame = false;
+    private boolean youWinScreen = false;
+    private boolean gameOverScreen = false;
 
     Image startScreenImage = new Image(0, 0, "start-difficulty-gameover/start.png");
     Image difficultyImage = new Image(0, 0, "start-difficulty-gameover/difficulty.png");
     Image gameoverImage = new Image(0, 0, "start-difficulty-gameover/gameover.png");
     Image bgImage = new Image(0, 0, "level-backgrounds/g_bg.png");
     Image instructionImage = new Image(0, 0, "start-difficulty-gameover/instructions.png");
+    Image youWinImage = new Image(0, 0, "start-difficulty-gameover/youwin.png");
 
     private Point clickPos = new Point(0, 0);
 
@@ -61,6 +64,7 @@ public class Board {
     }
 
     public boolean clickOnRestart() {
+
         // check if click is on the restart button
         if (clickPos.getX() > 58 && clickPos.getX() < 582) {
             if (clickPos.getY() > 573 && clickPos.getY() < 707) {
@@ -103,12 +107,6 @@ public class Board {
             }
         }
         return gridPointList;
-    }
-
-    private void win(){
-        // canvas.removeAll();
-        // win.setCenter(CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
-        // canvas.add(win);
     }
 
     private void setLevel(String level){
@@ -197,6 +195,7 @@ public class Board {
                 if(newGame) {
                     canvas.remove(difficultyImage);
                     snakeManager.moveSnake();
+                    scoreManager.addScoreToCanvas();
                     canvas.draw();
                     canvas.pause(1000);
                     newGame = false;
@@ -204,10 +203,11 @@ public class Board {
                 canvas.pause(speed);
 
                 //cannot renew score
-                scoreManager.addScoreToCanvas();
+                
 
                 snakeManager.moveSnake();
                 String collisionTest = snakeManager.checkCollision(foodManager);
+                System.out.println(collisionTest);
                 if(collisionTest != "no"){
                     if (collisionTest == "food"){
                         scoreManager.addScore(foodManager.getFoodType());
@@ -215,17 +215,66 @@ public class Board {
                         snakeManager.snakeGrow(foodManager);
                     }
 
-                    if (collisionTest == "snake"||collisionTest == "border"){
+                    if (collisionTest == "border"){
                         snakeManager.stop();
+                        gameScreen = false;
+                        gameOverScreen = true;
+                        newGame = true;
+                        System.out.println("jeel");
+                
+                    }
+
+                    if(collisionTest == "snake"){
+                        //snakeManager.deadface();
+                        gameScreen = false;
+                        gameOverScreen = true;
+                        newGame = true;
                     }
                 }
 
                 if(scoreManager.win()){
-                    win();
+                    gameScreen = false;
+                    youWinScreen = true;
+                    newGame = true;
                 }
 
                 canvas.draw();
             }
+
+            if(youWinScreen) {
+                if(newGame){
+                    scoreManager.setScore(0);
+                    canvas.add(youWinImage);
+                    newGame=false;
+                }
+                if(clickOnRestart()){
+                    canvas.remove(youWinImage);
+                    canvas.add(difficultyImage);
+
+                    snakeManager.resetSnake();
+                    
+                    youWinScreen = false;
+                    difficultyScreen = true;
+                }
+            }
+
+            if(gameOverScreen) {
+                if(newGame){
+                    scoreManager.setScore(0);
+                    canvas.add(gameoverImage);
+                    newGame=false;
+                }
+                if(clickOnRestart()){
+                    canvas.remove(gameoverImage);
+                    canvas.add(difficultyImage);
+
+                    snakeManager.resetSnake();
+
+                    gameOverScreen = false;
+                    difficultyScreen = true;
+                }
+            }
+
         });
     }
 

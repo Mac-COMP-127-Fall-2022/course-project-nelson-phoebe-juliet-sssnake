@@ -10,12 +10,15 @@ import edu.macalester.graphics.events.Key;
 
 public class SnakeManager {
     private ArrayList<SnakePiece> snake = new ArrayList<>();
+    private ArrayList<Point> gridPointList;
     private Map<SnakePiece, String> snakeDirection = new HashMap<>();
     private double headX, headY, newHeadX, newHeadY;
     private CanvasWindow canvas;
     private SnakeHead snakeHead;
     private ImageManager imageManager;
+    private FoodManager foodManager;
     private boolean move = true;
+
 
     private String direction;
     private String newDirection;
@@ -31,6 +34,8 @@ public class SnakeManager {
         newDirection = "up";
         direction = "up";
 
+        this.foodManager = foodManager;
+        this.gridPointList = gridPointList;
         this.imageManager = imageManager;
         this.level = imageManager.getLevel();
 
@@ -52,6 +57,26 @@ public class SnakeManager {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public void resetSnake(){
+
+        for (SnakePiece s : snake) {
+            canvas.remove(s.getShape());
+        }
+        
+        canvas.remove(snakeHead.getShape());
+        snake.clear();
+        snakeDirection.clear();
+
+        snakeHead = new SnakeHead(gridPointList.get(50).getX(), gridPointList.get(50).getY(), imageManager);
+        canvas.add(snakeHead.getShape());
+        snakeGrow(foodManager);
+        snakeGrow(foodManager);
+        
+        moveSnake();
+        
+
     }
 
     public String checkCollision(FoodManager foodManager) {
