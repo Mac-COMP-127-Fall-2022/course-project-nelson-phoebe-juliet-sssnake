@@ -47,6 +47,10 @@ public class FoodManager {
         canvas.add(food.getShape());
     }
 
+    public void setFoodImage(){
+        food.getFoodShape().setImgPath(imageManager.getFoodImage(foodType));
+    }
+
     private void randomlySetFoodType(){
         int randomInt = r.nextInt(100);
         if(randomInt<=25){
@@ -56,8 +60,8 @@ public class FoodManager {
         }
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    public void setLevel(String newLevel) {
+        level = newLevel;
     }
 
     public String getFoodType() {
@@ -72,7 +76,6 @@ public class FoodManager {
         ArrayList<Point> foodPointList = new ArrayList<Point>();
         for(Point p: gridPointList){
             for(SnakePiece s: snake){
-                System.out.println(s.getTopLX() + s.getTopLY());
                 if(p.getX()!=s.getTopLX()&&p.getY()!=s.getTopLY()){
                     foodPointList.add(p);
                 }

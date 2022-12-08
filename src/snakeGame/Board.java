@@ -113,14 +113,16 @@ public class Board {
 
     private void setLevel(String level){
         if (level == "g"){
-            speed = 200;
-        }
-        if (level == "b"){
             speed = 150;
         }
-        if (level == "r"){
-            speed = 75;
+        if (level == "b"){
+            speed = 100;
         }
+        if (level == "r"){
+            speed = 50;
+        }
+
+        
     }
 
 
@@ -137,7 +139,6 @@ public class Board {
         
 
         // create a small body before game starts
-        snakeManager.moveSnake();
         snakeManager.moveSnake();
 
         foodManager.makeFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
@@ -183,7 +184,7 @@ public class Board {
                     this.level = difficultySeclection;
                     imageManager.setLevel(difficultySeclection);
                     snakeManager.setLevel(difficultySeclection);
-                    foodManager.setLevel(difficultySeclection);
+                    foodManager.setFoodImage();
                     bgImage.setImagePath(imageManager.getBgImage());
                     setLevel(difficultySeclection);
                     gameScreen = true;
@@ -193,7 +194,6 @@ public class Board {
             }
 
             if(gameScreen){
-                
                 if(newGame) {
                     canvas.remove(difficultyImage);
                     snakeManager.moveSnake();
@@ -204,7 +204,7 @@ public class Board {
                 canvas.pause(speed);
 
                 //cannot renew score
-                scoreManager.addScoreToCanvas(canvas);
+                scoreManager.addScoreToCanvas();
 
                 snakeManager.moveSnake();
                 String collisionTest = snakeManager.checkCollision(foodManager);

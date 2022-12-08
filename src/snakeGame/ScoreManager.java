@@ -11,7 +11,7 @@ public class ScoreManager {
         this.canvas = canvas;
         Score = new GraphicsText("Score " + score);
         Score.setPosition(152,84);
-        Score.setFontSize(65);
+        Score.setFont(FontStyle.ITALIC, 65);
     }
 
     public void addScore(String food){
@@ -30,7 +30,7 @@ public class ScoreManager {
     public int getScore(){
         return score;
     }
-    public void addScoreToCanvas(CanvasWindow canvas) {
+    public void addScoreToCanvas() {
         canvas.add(Score);
     }
 

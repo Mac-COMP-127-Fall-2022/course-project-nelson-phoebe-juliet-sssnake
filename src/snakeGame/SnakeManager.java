@@ -179,10 +179,6 @@ public class SnakeManager {
             newHeadX = headX + snakeHead.getBlockSize();
             newHeadY = headY;
         }
-
-        // if (level == "b") {
-        //     direction = newDirection;
-        // }
         
         snakeHead.setSnakeHeadImg(direction);
 
