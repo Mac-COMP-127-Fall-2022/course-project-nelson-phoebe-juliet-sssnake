@@ -156,7 +156,7 @@ public class SnakeManager {
 
     private boolean ifHeadOnBound() {
 
-        if (level == "g" || level == "r") {
+        if (level == "g" || level == "r" || level == "b") {
             direction = newDirection;
         }
 
@@ -180,9 +180,9 @@ public class SnakeManager {
             newHeadY = headY;
         }
 
-        if (level == "b") {
-            direction = newDirection;
-        }
+        // if (level == "b") {
+        //     direction = newDirection;
+        // }
         
         snakeHead.setSnakeHeadImg(direction);
 

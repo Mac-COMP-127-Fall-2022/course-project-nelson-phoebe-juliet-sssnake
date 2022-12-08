@@ -13,12 +13,14 @@ public class Board {
     private boolean startScreen = true;
     private boolean restartScreen = false;
     private boolean difficultyScreen = false;
+    private boolean instructionScreen = false;
     private boolean newGame = false;
 
     Image startScreenImage = new Image(0, 0, "start-difficulty-gameover/start.png");
     Image difficultyImage = new Image(0, 0, "start-difficulty-gameover/difficulty.png");
     Image gameoverImage = new Image(0, 0, "start-difficulty-gameover/gameover.png");
     Image bgImage = new Image(0, 0, "level-backgrounds/g_bg.png");
+    Image instructionImage = new Image(0, 0, "start-difficulty-gameover/instructions.png");
 
     private Point clickPos = new Point(0, 0);
 
@@ -61,6 +63,15 @@ public class Board {
         // check if click is on the restart button
         if (clickPos.getX() > 58 && clickPos.getX() < 582) {
             if (clickPos.getY() > 573 && clickPos.getY() < 707) {
+                return true;
+            } else { return false; }
+        } else { return false; }
+    }
+
+    public boolean clickOnInstructions() {
+        // check if click is on the restart button
+        if (clickPos.getX() > 218 && clickPos.getX() < 589) {
+            if (clickPos.getY() > 552 && clickPos.getY() < 654) {
                 return true;
             } else { return false; }
         } else { return false; }
@@ -126,6 +137,7 @@ public class Board {
         });
 
         canvas.add(difficultyImage);
+        canvas.add(instructionImage);
         canvas.add(startScreenImage);
         
         canvas.draw();
@@ -136,8 +148,18 @@ public class Board {
                 if (clickOnStart()){
                     canvas.remove(startScreenImage);
                     canvas.draw();
-                    difficultyScreen = true;
+                    instructionScreen = true;
                     startScreen = false;
+                    clickPos = new Point(0,0);
+                }
+            }
+
+            if(instructionScreen) {
+                if (clickOnInstructions()){
+                    canvas.remove(instructionImage);
+                    canvas.draw();
+                    difficultyScreen = true;
+                    instructionScreen = false;
                 }
             }
 
