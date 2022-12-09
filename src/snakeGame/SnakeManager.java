@@ -93,8 +93,7 @@ public class SnakeManager {
             }
         }
 
-        if (headX < border || headY > canvas.getHeight() - border - snakeHead.getBlockSize()
-            || headX > canvas.getWidth() - border - snakeHead.getBlockSize() || headY < border) {
+        if (newHeadX>canvas.getWidth() || newHeadX<0 || newHeadY<border+80 || newHeadY>canvas.getHeight()) {
             return "border";
         }
 
@@ -130,7 +129,7 @@ public class SnakeManager {
 
     public void moveSnake() {
         if (move) {
-            if (ifHeadOnBound()) {
+            ifHeadOnBound(); 
                 // for each snake piece set position to the previous one's
                 for (int pieceNumber = snake.size(); pieceNumber > 0; pieceNumber--) {
                     if(pieceNumber == 1){
@@ -176,13 +175,13 @@ public class SnakeManager {
                 headX = newHeadX;
                 snakeHead.setPosition(headX, headY);
 
-            } // if head not on bounds
+             // if head not on bounds
         } // if moving
     } // method
     
 
 
-    private boolean ifHeadOnBound() {
+    private void ifHeadOnBound() {
 
         if (level == "g" || level == "r" || level == "b") {
             direction = newDirection;
@@ -210,12 +209,12 @@ public class SnakeManager {
         
         snakeHead.setSnakeHeadImg(direction);
 
-        if (newHeadX >= border && newHeadX <= canvas.getWidth() - border - snakeHead.getBlockSize()
-            && newHeadY >= border+80 && newHeadY <= canvas.getHeight() - border - snakeHead.getBlockSize()) {
-            return true;
-        } else {
-            return false;
-        }
+        // if (newHeadX >= border && newHeadX <= canvas.getWidth() - border - snakeHead.getBlockSize()
+        //     && newHeadY >= border+80 && newHeadY <= canvas.getHeight() - border - snakeHead.getBlockSize()) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
     }
 
     public double getSnakeHeadX() {
