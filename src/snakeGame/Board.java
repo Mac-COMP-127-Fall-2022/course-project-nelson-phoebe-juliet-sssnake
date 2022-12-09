@@ -226,6 +226,7 @@ public class Board {
                 }
                 canvas.pause(speed);
 
+                snakeManager.moveSnake();
                 String collisionTest = snakeManager.checkCollision(foodManager);
                 if(collisionTest != "no"){
                     if (collisionTest == "food"){
@@ -235,22 +236,21 @@ public class Board {
                     }
 
                     if (collisionTest == "border"){
+                        snakeManager.stop();
                         gameScreen = false;
                         gameOverScreen = true;
                         newGame = true;
+                        System.out.println("jeel");
                 
                     }
 
                     if(collisionTest == "snake"){
+                        //snakeManager.deadface();
                         gameScreen = false;
                         gameOverScreen = true;
                         newGame = true;
                     }
                 }
-                if (!newGame) {
-                    snakeManager.moveSnake();
-                }
-                
 
                 if(scoreManager.win()){
                     gameScreen = false;
