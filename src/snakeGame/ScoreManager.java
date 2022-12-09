@@ -16,9 +16,9 @@ public class ScoreManager {
 
     public void addScore(String food){
         if (food =="bug"){
-            score+=100;
+            score+=10;
         } else {
-            score+=100;
+            score+=5;
         }
         
         Score.setText("Score " + score);

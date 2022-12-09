@@ -1,11 +1,17 @@
 package snakeGame;
 
+import edu.macalester.graphics.GraphicsObject;
+
 public class ImageManager {
 
     private String level;
+    private int i;
+    private boolean c = true;
 
     public ImageManager(String level) {
         this.level = level;
+        i = 0;
+
     }
 
     public void setLevel(String level) {
@@ -14,6 +20,35 @@ public class ImageManager {
 
     public String getLevel() {
         return level;
+    }
+
+    public void animateSnake(GraphicsObject snake) {
+        if (snake.getPosition().getX() < 650) {
+            i = i + 3;
+            snake.setPosition(-600+i,0);
+            
+        } else {
+            snake.setPosition(-600,0);
+            
+            i = 0;
+        }
+        
+    }
+
+    public void animateCloud(GraphicsObject cloud) {
+        if (c) {
+            cloud.setPosition(0,cloud.getPosition().getY()+0.25);
+            if (cloud.getPosition().getY()>5) {
+                c = false;
+            }
+            
+        } else {
+            cloud.setPosition(0,cloud.getPosition().getY()-0.25);
+            if (cloud.getPosition().getY()<-5) {
+                c = true;
+            }
+        }
+        
     }
 
     public String getImagePathString(String folder, String picture) {

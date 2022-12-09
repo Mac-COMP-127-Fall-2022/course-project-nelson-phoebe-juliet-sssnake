@@ -28,16 +28,11 @@ public class FoodManager {
 
         this.imageManager = imageManager;
 
-        
-
         this.gridPointList = gridPointList;
-        //remove points of the snake
 
-        foodPos = (new Point(0,0));
+        foodPos = new Point(0,0);
 
         food = new Food(foodPos.getX(), foodPos.getY());
-        // food.setImgPath("food/bbug.png");
-        
     }
 
     public void makeFood(ArrayList<SnakePiece> snake, SnakeHead head) { 
@@ -53,7 +48,7 @@ public class FoodManager {
 
     private void randomlySetFoodType(){
         int randomInt = r.nextInt(100);
-        if(randomInt<=25){
+        if(randomInt<=30){
             foodType = "bug";
         }else{
             foodType = "fruit";

@@ -25,6 +25,8 @@ public class Board {
     Image bgImage = new Image(0, 0, "level-backgrounds/g_bg.png");
     Image instructionImage = new Image(0, 0, "start-difficulty-gameover/instructions.png");
     Image youWinImage = new Image(0, 0, "start-difficulty-gameover/youwin.png");
+    Image startScreenSnakeImage = new Image(0, 0, "start-difficulty-gameover/start-snake.png");
+    Image difficultyCloudImage = new Image(0, 0, "start-difficulty-gameover/difficulty-cloud.png");
 
     private Point clickPos = new Point(0, 0);
 
@@ -149,17 +151,27 @@ public class Board {
             setClickPos(event.getPosition());
         });
 
+        int i = 0;
+
         canvas.add(difficultyImage);
+        canvas.add(difficultyCloudImage);
         canvas.add(instructionImage);
         canvas.add(startScreenImage);
+        canvas.add(startScreenSnakeImage);
+        startScreenSnakeImage.setPosition(-600,0);
         
         canvas.draw();
 
         canvas.animate(() -> {
             
             if(startScreen) {
+                imageManager.animateSnake(startScreenSnakeImage);
+                canvas.draw();
+                
                 if (clickOnStart()){
                     canvas.remove(startScreenImage);
+                    canvas.remove(startScreenSnakeImage);
+                    
                     canvas.draw();
                     instructionScreen = true;
                     startScreen = false;
@@ -177,6 +189,9 @@ public class Board {
             }
 
             if (difficultyScreen) {
+
+                imageManager.animateCloud(difficultyCloudImage);
+
                 String difficultySeclection = clickOnDifficulty();
                 if (difficultySeclection != null) {
 
@@ -201,6 +216,7 @@ public class Board {
             if(gameScreen){
                 if(newGame) {
                     canvas.remove(difficultyImage);
+                    canvas.remove(difficultyCloudImage);
                     snakeManager.moveSnake();
                     scoreManager.addScoreToCanvas();
                     canvas.draw();
@@ -256,6 +272,7 @@ public class Board {
                 if(clickOnRestart()){
                     canvas.remove(youWinImage);
                     canvas.add(difficultyImage);
+                    canvas.add(difficultyCloudImage);
 
                     canvas.draw();
                     
@@ -273,6 +290,7 @@ public class Board {
                 if(clickOnRestart()){
                     canvas.remove(gameoverImage);
                     canvas.add(difficultyImage);
+                    canvas.add(difficultyCloudImage);
 
                     canvas.draw();
 

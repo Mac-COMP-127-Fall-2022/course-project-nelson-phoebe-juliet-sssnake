@@ -209,7 +209,6 @@ public class SnakeManager {
         }
         
         snakeHead.setSnakeHeadImg(direction);
-        System.out.println(direction);
 
         if (newHeadX >= border && newHeadX <= canvas.getWidth() - border - snakeHead.getBlockSize()
             && newHeadY >= border+80 && newHeadY <= canvas.getHeight() - border - snakeHead.getBlockSize()) {
