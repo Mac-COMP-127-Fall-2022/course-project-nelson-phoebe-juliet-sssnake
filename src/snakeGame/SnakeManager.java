@@ -61,16 +61,19 @@ public class SnakeManager {
 
     public void resetSnake(){
 
+        direction = "up";
+
         for (SnakePiece s : snake) {
             canvas.remove(s.getShape());
         }
         
-        canvas.remove(snakeHead.getShape());
         snake.clear();
         snakeDirection.clear();
 
-        snakeHead = new SnakeHead(gridPointList.get(50).getX(), gridPointList.get(50).getY(), imageManager);
-        canvas.add(snakeHead.getShape());
+        headX = gridPointList.get(50).getX();
+        headY = gridPointList.get(50).getY();
+        changeDirection(Key.UP_ARROW);
+
         snakeGrow(foodManager);
         snakeGrow(foodManager);
         
@@ -206,6 +209,7 @@ public class SnakeManager {
         }
         
         snakeHead.setSnakeHeadImg(direction);
+        System.out.println(direction);
 
         if (newHeadX >= border && newHeadX <= canvas.getWidth() - border - snakeHead.getBlockSize()
             && newHeadY >= border+80 && newHeadY <= canvas.getHeight() - border - snakeHead.getBlockSize()) {

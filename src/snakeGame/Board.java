@@ -179,12 +179,19 @@ public class Board {
             if (difficultyScreen) {
                 String difficultySeclection = clickOnDifficulty();
                 if (difficultySeclection != null) {
+
                     this.level = difficultySeclection;
                     imageManager.setLevel(difficultySeclection);
                     snakeManager.setLevel(difficultySeclection);
+
                     foodManager.setFoodImage();
+
                     bgImage.setImagePath(imageManager.getBgImage());
                     setLevel(difficultySeclection);
+
+        
+                    snakeManager.resetSnake();
+
                     gameScreen = true;
                     newGame = true;
                     difficultyScreen = false;
@@ -207,7 +214,6 @@ public class Board {
 
                 snakeManager.moveSnake();
                 String collisionTest = snakeManager.checkCollision(foodManager);
-                System.out.println(collisionTest);
                 if(collisionTest != "no"){
                     if (collisionTest == "food"){
                         scoreManager.addScore(foodManager.getFoodType());
@@ -251,7 +257,7 @@ public class Board {
                     canvas.remove(youWinImage);
                     canvas.add(difficultyImage);
 
-                    snakeManager.resetSnake();
+                    canvas.draw();
                     
                     youWinScreen = false;
                     difficultyScreen = true;
@@ -268,7 +274,7 @@ public class Board {
                     canvas.remove(gameoverImage);
                     canvas.add(difficultyImage);
 
-                    snakeManager.resetSnake();
+                    canvas.draw();
 
                     gameOverScreen = false;
                     difficultyScreen = true;
