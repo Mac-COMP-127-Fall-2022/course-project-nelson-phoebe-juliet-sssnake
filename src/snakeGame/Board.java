@@ -195,9 +195,10 @@ public class Board {
                 String difficultySeclection = clickOnDifficulty();
                 if (difficultySeclection != null) {
 
-                    this.level = difficultySeclection;
+                    level = difficultySeclection;
                     imageManager.setLevel(difficultySeclection);
                     snakeManager.setLevel(difficultySeclection);
+                    scoreManager.setLevel(difficultySeclection);
 
                     foodManager.setFoodImage();
 
@@ -224,9 +225,6 @@ public class Board {
                     newGame = false;
                 }
                 canvas.pause(speed);
-
-                //cannot renew score
-                
 
                 snakeManager.moveSnake();
                 String collisionTest = snakeManager.checkCollision(foodManager);
@@ -266,6 +264,7 @@ public class Board {
             if(youWinScreen) {
                 if(newGame){
                     scoreManager.setScore(0);
+                    scoreManager.renewScoreGraphText();
                     canvas.add(youWinImage);
                     newGame=false;
                 }
@@ -284,6 +283,7 @@ public class Board {
             if(gameOverScreen) {
                 if(newGame){
                     scoreManager.setScore(0);
+                    scoreManager.renewScoreGraphText();
                     canvas.add(gameoverImage);
                     newGame=false;
                 }
