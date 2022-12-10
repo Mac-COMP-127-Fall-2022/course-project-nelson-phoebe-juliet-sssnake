@@ -1,13 +1,10 @@
 package snakeGame;
+
 import java.util.Random;
-
-import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.*;
-
 import java.util.ArrayList;
 
 public class FoodManager {
-    //randomly put the rectangle in different places
     private Random r = new Random();
     private CanvasWindow canvas;
     private Food food;
@@ -18,13 +15,9 @@ public class FoodManager {
 
     private String foodType;
 
-    private String level;
-
 
     public FoodManager(CanvasWindow canvas, ArrayList<Point> gridPointList, String level, ImageManager imageManager){
         this.canvas = canvas;
-
-        this.level = level;
 
         this.imageManager = imageManager;
 
@@ -35,15 +28,25 @@ public class FoodManager {
         food = new Food(foodPos.getX(), foodPos.getY());
     }
 
+    
+
+    public String getFoodType() {
+        return foodType;
+    }
+
+    public double getFoodX() {
+        return foodPos.getX();
+    }
+
+    public double getFoodY() {
+        return foodPos.getY();
+    }
+
     public void makeFood(ArrayList<SnakePiece> snake, SnakeHead head) { 
         randomlySetFoodType();
         randomlySetFoodPos(food,snake,head);
         food.getFoodShape().setImgPath(imageManager.getFoodImage(foodType));
         canvas.add(food.getShape());
-    }
-
-    public void setFoodImage(){
-        food.getFoodShape().setImgPath(imageManager.getFoodImage(foodType));
     }
 
     private void randomlySetFoodType(){
@@ -55,19 +58,7 @@ public class FoodManager {
         }
     }
 
-    public void setLevel(String newLevel) {
-        level = newLevel;
-    }
-
-    public String getFoodType() {
-        return foodType;
-    }
-
-    public Food getFood() {
-        return food;
-    }
-
-    public void randomlySetFoodPos(Food food,ArrayList<SnakePiece> snake, SnakeHead head) {
+    private void randomlySetFoodPos(Food food,ArrayList<SnakePiece> snake, SnakeHead head) {
         ArrayList<Point> foodPointList = new ArrayList<Point>();
         for(Point p: gridPointList){
             for(SnakePiece s: snake){
@@ -82,13 +73,5 @@ public class FoodManager {
         int randomInt = r.nextInt(foodPointList.size());
         foodPos = foodPointList.get(randomInt);
         food.getShape().setPosition(foodPos);
-    }
-
-    public double getFoodX() {
-        return foodPos.getX();
-    }
-
-    public double getFoodY() {
-        return foodPos.getY();
     }
 }

@@ -17,7 +17,6 @@ public class Block{
         this.topLY = topLY;
 
         shape = new Image(topLX, topLY);
-        // shape.setStroked(false);
     }    
     public GraphicsObject getShape(){
         return shape;
@@ -48,12 +47,5 @@ public class Block{
 
     public void setImgPath(String path){
         shape.setImagePath(path);
-        
     }
-    
-    // public void setColor(Color color){
-    //     shape.setFillColor(color);
-    // }
-
-
 }

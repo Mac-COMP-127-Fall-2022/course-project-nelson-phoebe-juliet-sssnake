@@ -12,21 +12,13 @@ public class SnakeManager {
     private ArrayList<SnakePiece> snake = new ArrayList<>();
     private ArrayList<Point> gridPointList;
     private Map<SnakePiece, String> snakeDirection = new HashMap<>();
-    private double headX, headY, newHeadX, newHeadY;
+    private double headX, headY, newHeadX, newHeadY,border;
     private CanvasWindow canvas;
     private SnakeHead snakeHead;
     private ImageManager imageManager;
     private FoodManager foodManager;
     private boolean move = true;
-
-
-    private String direction;
-    private String newDirection;
-
-    private double border;
-    
-    private String level;
-
+    private String direction, newDirection,level;
 
 
     public SnakeManager(ArrayList<Point> gridPointList, CanvasWindow canvas, double border, FoodManager foodManager, ImageManager imageManager) {
@@ -38,9 +30,7 @@ public class SnakeManager {
         this.gridPointList = gridPointList;
         this.imageManager = imageManager;
         this.level = imageManager.getLevel();
-
         this.border = border;
-
         this.canvas = canvas;
 
         snakeHead = new SnakeHead(gridPointList.get(50).getX(), gridPointList.get(50).getY(), imageManager);
@@ -55,8 +45,8 @@ public class SnakeManager {
 
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    public void setLevel(String newLevel) {
+        level = newLevel;
     }
 
     public void resetSnake(){
@@ -74,12 +64,11 @@ public class SnakeManager {
         headY = gridPointList.get(50).getY();
         changeDirection(Key.UP_ARROW);
 
+        //grow the body and the tail
         snakeGrow(foodManager);
         snakeGrow(foodManager);
         
         moveSnake();
-        
-
     }
 
     public String checkCollision(FoodManager foodManager) {
@@ -218,11 +207,11 @@ public class SnakeManager {
         }
     }
 
-    public double getSnakeHeadX() {
+    private double getSnakeHeadX() {
         return headX;
     }
 
-    public double getSnakeHeadY() {
+    private double getSnakeHeadY() {
         return headY;
     }
 
@@ -273,9 +262,5 @@ public class SnakeManager {
 
     public SnakeHead getSnakeHead() {
         return snakeHead;
-    }
-
-    public String getSnakeBodyDirection(SnakePiece snake) {
-        return snakeDirection.get(snake);
     }
 }

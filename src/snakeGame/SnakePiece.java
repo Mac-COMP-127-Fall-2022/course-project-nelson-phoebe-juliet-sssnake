@@ -40,7 +40,6 @@ public class SnakePiece extends Block{
         snakePieceShape.setPosition(topLX, topLY);
     }
 
-    // Map<SnakePiece, String> snakeDirection
     public void setSnakePieceImg(String direction){
         snakePieceShape.setImgPath(imageManager.getSnakePieceImage(this, direction));
         

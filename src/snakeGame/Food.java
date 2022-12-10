@@ -13,8 +13,6 @@ public class Food extends Block{
         this.topLX = topLX;
         this.topLY = topLY;
         foodShape = new Block(topLX, topLY);
-        // foodShape.setColor(Color.RED);
-        foodShape.setImgPath("food/bbug.png");
     }
 
     @Override

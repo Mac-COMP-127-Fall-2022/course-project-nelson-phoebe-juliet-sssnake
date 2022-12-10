@@ -6,13 +6,13 @@ import java.util.ArrayList;
 public class Board {
     //the snake game
     private CanvasWindow canvas;
-    private Image bg;
-    private static final int CANVAS_WIDTH = 640, CANVAS_HEIGHT = 720, border = 20;
+    private static final int CANVAS_WIDTH = 640, CANVAS_HEIGHT = 720, BORDER = 20;
     private int speed = 100;
+    private String level;
+    private ArrayList<Point> gridPointList;
 
     private boolean gameScreen = false;
     private boolean startScreen = true;
-    private boolean restartScreen = false;
     private boolean difficultyScreen = false;
     private boolean instructionScreen = false;
     private boolean newGame = false;
@@ -30,33 +30,18 @@ public class Board {
 
     private Point clickPos = new Point(0, 0);
 
-    private String level;
-
-    private ArrayList<Point> gridPointList;
 
     public Board(){
         canvas = new CanvasWindow("Snake Game", CANVAS_WIDTH, CANVAS_HEIGHT);
         gridPointList = new ArrayList<Point>();
-        this.level = "r";
+        level = "r";
     }
 
-    public double getCanvasWidth(){
-        return CANVAS_WIDTH;
+    private void setClickPos(Point position) {
+        clickPos = position;
     }
 
-    public double getCanvasHeight(){
-        return CANVAS_HEIGHT;
-    }
-
-    public double getBorder(){
-        return border;
-    }
-
-    public void setClickPos(Point position) {
-        this.clickPos = position;
-    }
-
-    public boolean clickOnStart() {
+    private boolean clickOnStart() {
         // check if click is on the start button
         if (clickPos.getX() > 70 && clickPos.getX() < 582) {
             if (clickPos.getY() > 541 && clickPos.getY() < 701) {
@@ -65,8 +50,7 @@ public class Board {
         } else { return false; }
     }
 
-    public boolean clickOnRestart() {
-
+    private boolean clickOnRestart() {
         // check if click is on the restart button
         if (clickPos.getX() > 58 && clickPos.getX() < 582) {
             if (clickPos.getY() > 573 && clickPos.getY() < 707) {
@@ -75,7 +59,7 @@ public class Board {
         } else { return false; }
     }
 
-    public boolean clickOnInstructions() {
+    private boolean clickOnInstructions() {
         // check if click is on the restart button
         if (clickPos.getX() > 218 && clickPos.getX() < 589) {
             if (clickPos.getY() > 552 && clickPos.getY() < 654) {
@@ -84,7 +68,7 @@ public class Board {
         } else { return false; }
     }
 
-    public String clickOnDifficulty() {
+    private String clickOnDifficulty() {
         
         // check if click is on the a difficulty button, if so, which
         if (clickPos.getY() > 373 && clickPos.getY() < 565) {
@@ -103,8 +87,8 @@ public class Board {
     }
 
     private ArrayList<Point> getGridPointList() {
-        for (int column = border; column < 640-border; column+=((640-border*2)/20)) {
-            for (int row = border+80; row < 700-border; row+=((640-border*2)/20)) {
+        for (int column = BORDER; column < 640-BORDER; column+=((640-BORDER*2)/20)) {
+            for (int row = BORDER+80; row < 700-BORDER; row+=((640-BORDER*2)/20)) {
                 gridPointList.add(new Point(column, row));
             }
         }
@@ -121,8 +105,6 @@ public class Board {
         if (level == "r"){
             speed = 50;
         }
-
-        
     }
 
 
@@ -135,7 +117,7 @@ public class Board {
         ImageManager imageManager = new ImageManager(level);
         FoodManager foodManager = new FoodManager(canvas, gridPointList,level, imageManager);
         ScoreManager scoreManager = new ScoreManager(canvas);
-        SnakeManager snakeManager = new SnakeManager(gridPointList, canvas, border, foodManager, imageManager);
+        SnakeManager snakeManager = new SnakeManager(gridPointList, canvas, BORDER, foodManager, imageManager);
         
 
         // create a small body before game starts
@@ -150,8 +132,6 @@ public class Board {
         canvas.onClick(event -> {
             setClickPos(event.getPosition());
         });
-
-        int i = 0;
 
         canvas.add(difficultyImage);
         canvas.add(difficultyCloudImage);
@@ -200,12 +180,11 @@ public class Board {
                     snakeManager.setLevel(difficultySeclection);
                     scoreManager.setLevel(difficultySeclection);
 
-                    foodManager.setFoodImage();
+                    foodManager.makeFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
 
                     bgImage.setImagePath(imageManager.getBgImage());
                     setLevel(difficultySeclection);
 
-        
                     snakeManager.resetSnake();
 
                     gameScreen = true;
@@ -240,12 +219,9 @@ public class Board {
                         gameScreen = false;
                         gameOverScreen = true;
                         newGame = true;
-                        System.out.println("jeel");
-                
                     }
 
                     if(collisionTest == "snake"){
-                        //snakeManager.deadface();
                         gameScreen = false;
                         gameOverScreen = true;
                         newGame = true;
@@ -263,7 +239,7 @@ public class Board {
 
             if(youWinScreen) {
                 if(newGame){
-                    scoreManager.setScore(0);
+                    scoreManager.setScoreZero();;
                     scoreManager.renewScoreGraphText();
                     canvas.add(youWinImage);
                     newGame=false;
@@ -282,7 +258,7 @@ public class Board {
 
             if(gameOverScreen) {
                 if(newGame){
-                    scoreManager.setScore(0);
+                    scoreManager.setScoreZero();;
                     scoreManager.renewScoreGraphText();
                     canvas.add(gameoverImage);
                     newGame=false;
@@ -298,7 +274,6 @@ public class Board {
                     difficultyScreen = true;
                 }
             }
-
         });
     }
 

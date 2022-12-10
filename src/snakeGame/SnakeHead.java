@@ -12,7 +12,6 @@ public class SnakeHead extends Block{
         super(topLX, topLY);
 
         this.imageManager = imageManager;
-        
         this.topLX = topLX;
         this.topLY = topLY;
         snakeHeadShape = new Block(topLX, topLY);
