@@ -15,7 +15,6 @@ public class SnakeHead extends Block{
      * Constructor for the SnakeHead class. 
      */
     public SnakeHead(double topLX, double topLY, ImageManager imageManager){
-        // instance variables
         super(topLX, topLY);
         this.imageManager = imageManager;
         this.topLX = topLX;

@@ -15,6 +15,7 @@ import edu.macalester.graphics.events.Key;
  * with food or the boarder. 
  */
 public class SnakeManager {
+    // instance variables
     private ArrayList<SnakePiece> snake = new ArrayList<>();
     private ArrayList<Point> gridPointList;
     private Map<SnakePiece, String> snakeDirection = new HashMap<>();
@@ -30,7 +31,6 @@ public class SnakeManager {
      * Constructor for the SnakeManager class.  
      */
     public SnakeManager(ArrayList<Point> gridPointList, CanvasWindow canvas, double border, FoodManager foodManager, ImageManager imageManager) {
-        // instance variables
         newDirection = "up";
         direction = "up";
         this.foodManager = foodManager;
@@ -72,7 +72,7 @@ public class SnakeManager {
         headX = gridPointList.get(50).getX();
         headY = gridPointList.get(50).getY();
         changeDirection(Key.UP_ARROW);
-        
+
         //grow the body and the tail
         snakeGrow(foodManager);
         snakeGrow(foodManager);
