@@ -11,7 +11,7 @@ public class Food extends Block{
     private double blockSize,topLX,topLY;
 
     /**
-    * Constructor for the food class.
+     * Constructor for the food class.
      *
      * @param topLX        The top left x-position of the food
      * @param topLY        The top left y-position of the food
@@ -24,7 +24,7 @@ public class Food extends Block{
     }
 
     /**
-     * Returns the shape of the block.
+     * Returns the shape of the food for Grpahical Object.
      */
     @Override
     public GraphicsObject getShape() {

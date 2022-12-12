@@ -101,7 +101,7 @@ public class SnakePiece extends Block{
     }
 
     /**
-     * Returns the size of the snake piece.
+     * Returns the size of the block piece.
      */
     @Override
     public double getBlockSize(){
