@@ -20,8 +20,7 @@ public class FoodManager {
     private String foodType;
 
     /**
-    * Constructor for the FoodManager class
-    *
+    * Constructor for the FoodManager class.
     **/
     public FoodManager(CanvasWindow canvas, ArrayList<Point> gridPointList, String level, ImageManager imageManager){
         this.canvas = canvas;
