@@ -3,14 +3,19 @@ package snakeGame;
 import edu.macalester.graphics.*;
 import java.util.ArrayList;
 
+/**
+ * The game of Snake.
+ * 
+ * @Author Nelson Mondale, Pheobe Pan, Juliet Cramer
+ * @Date 12/13/2022
+ */
 public class Board {
-    //the snake game
+    // instance variables
     private CanvasWindow canvas;
     private static final int CANVAS_WIDTH = 640, CANVAS_HEIGHT = 720, BORDER = 20;
     private int speed = 100;
     private String level;
     private ArrayList<Point> gridPointList;
-
     private boolean gameScreen = false;
     private boolean startScreen = true;
     private boolean difficultyScreen = false;
@@ -19,6 +24,7 @@ public class Board {
     private boolean youWinScreen = false;
     private boolean gameOverScreen = false;
 
+    // images for the different screens
     Image startScreenImage = new Image(0, 0, "start-difficulty-gameover/start.png");
     Image difficultyImage = new Image(0, 0, "start-difficulty-gameover/difficulty.png");
     Image gameoverImage = new Image(0, 0, "start-difficulty-gameover/gameover.png");
@@ -29,8 +35,6 @@ public class Board {
     Image difficultyCloudImage = new Image(0, 0, "start-difficulty-gameover/difficulty-cloud.png");
 
     private Point clickPos = new Point(0, 0);
-
-
     public Board(){
         canvas = new CanvasWindow("Snake Game", CANVAS_WIDTH, CANVAS_HEIGHT);
         gridPointList = new ArrayList<Point>();
@@ -60,7 +64,7 @@ public class Board {
     }
 
     private boolean clickOnInstructions() {
-        // check if click is on the restart button
+        // check if click is on the next button
         if (clickPos.getX() > 218 && clickPos.getX() < 589) {
             if (clickPos.getY() > 552 && clickPos.getY() < 654) {
                 return true;
@@ -69,7 +73,6 @@ public class Board {
     }
 
     private String clickOnDifficulty() {
-        
         // check if click is on the a difficulty button, if so, which
         if (clickPos.getY() > 373 && clickPos.getY() < 565) {
             if (clickPos.getX() > 26 && clickPos.getX() < 211) {
@@ -107,58 +110,53 @@ public class Board {
         }
     }
 
-
+    /**
+     * Creates round(s) of the snake game depending on user preference
+     */
     public void playSnake() {
-
         gridPointList = getGridPointList();
-
         canvas.add(bgImage);
 
+        // create new managers to play the snake game for the score and images (food and body)
         ImageManager imageManager = new ImageManager(level);
         FoodManager foodManager = new FoodManager(canvas, gridPointList,level, imageManager);
         ScoreManager scoreManager = new ScoreManager(canvas);
         SnakeManager snakeManager = new SnakeManager(gridPointList, canvas, BORDER, foodManager, imageManager);
         
-
         // create a small body before game starts
         snakeManager.moveSnake();
-
         foodManager.makeFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
 
+        // change the direction of the snake depending on which key is clicked (up,down,left,right)
         canvas.onKeyDown(event -> {
             snakeManager.changeDirection(event.getKey());
         });
-
         canvas.onClick(event -> {
             setClickPos(event.getPosition());
         });
 
+        // add images to the screen
         canvas.add(difficultyImage);
         canvas.add(difficultyCloudImage);
         canvas.add(instructionImage);
         canvas.add(startScreenImage);
         canvas.add(startScreenSnakeImage);
         startScreenSnakeImage.setPosition(-600,0);
-        
         canvas.draw();
 
         canvas.animate(() -> {
-            
             if(startScreen) {
                 imageManager.animateSnake(startScreenSnakeImage);
                 canvas.draw();
-                
                 if (clickOnStart()){
                     canvas.remove(startScreenImage);
                     canvas.remove(startScreenSnakeImage);
-                    
                     canvas.draw();
                     instructionScreen = true;
                     startScreen = false;
                     clickPos = new Point(0,0);
                 }
             }
-
             if(instructionScreen) {
                 if (clickOnInstructions()){
                     canvas.remove(instructionImage);
@@ -167,32 +165,23 @@ public class Board {
                     instructionScreen = false;
                 }
             }
-
             if (difficultyScreen) {
-
                 imageManager.animateCloud(difficultyCloudImage);
-
                 String difficultySeclection = clickOnDifficulty();
                 if (difficultySeclection != null) {
-
                     level = difficultySeclection;
                     imageManager.setLevel(difficultySeclection);
                     snakeManager.setLevel(difficultySeclection);
                     scoreManager.setLevel(difficultySeclection);
-
                     foodManager.makeFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
-
                     bgImage.setImagePath(imageManager.getBgImage());
                     setLevel(difficultySeclection);
-
                     snakeManager.resetSnake();
-
                     gameScreen = true;
                     newGame = true;
                     difficultyScreen = false;
                 }
             }
-
             if(gameScreen){
                 if(newGame) {
                     canvas.remove(difficultyImage);
@@ -204,7 +193,6 @@ public class Board {
                     newGame = false;
                 }
                 canvas.pause(speed);
-
                 snakeManager.moveSnake();
                 String collisionTest = snakeManager.checkCollision(foodManager);
                 if(collisionTest != "no"){
@@ -213,30 +201,25 @@ public class Board {
                         foodManager.makeFood(snakeManager.getSnake(),snakeManager.getSnakeHead());
                         snakeManager.snakeGrow(foodManager);
                     }
-
                     if (collisionTest == "border"){
                         snakeManager.stop();
                         gameScreen = false;
                         gameOverScreen = true;
                         newGame = true;
                     }
-
                     if(collisionTest == "snake"){
                         gameScreen = false;
                         gameOverScreen = true;
                         newGame = true;
                     }
                 }
-
                 if(scoreManager.win()){
                     gameScreen = false;
                     youWinScreen = true;
                     newGame = true;
                 }
-
                 canvas.draw();
             }
-
             if(youWinScreen) {
                 if(newGame){
                     scoreManager.setScoreZero();;
@@ -248,14 +231,11 @@ public class Board {
                     canvas.remove(youWinImage);
                     canvas.add(difficultyImage);
                     canvas.add(difficultyCloudImage);
-
                     canvas.draw();
-                    
                     youWinScreen = false;
                     difficultyScreen = true;
                 }
             }
-
             if(gameOverScreen) {
                 if(newGame){
                     scoreManager.setScoreZero();;
@@ -267,9 +247,7 @@ public class Board {
                     canvas.remove(gameoverImage);
                     canvas.add(difficultyImage);
                     canvas.add(difficultyCloudImage);
-
                     canvas.draw();
-
                     gameOverScreen = false;
                     difficultyScreen = true;
                 }
