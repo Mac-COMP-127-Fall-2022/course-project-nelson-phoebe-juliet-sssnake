@@ -20,8 +20,8 @@ public class FoodManager {
     private String foodType;
 
     /**
-    * Constructor for the FoodManager class.
-    **/
+     * Constructor for the FoodManager class.
+     */
     public FoodManager(CanvasWindow canvas, ArrayList<Point> gridPointList, String level, ImageManager imageManager){
         this.canvas = canvas;
         this.imageManager = imageManager;
@@ -31,30 +31,30 @@ public class FoodManager {
     }
 
     /**
-    * Returns the type of food.
-    */
+     * Returns the type of food.
+     */
     public String getFoodType() {
         return foodType;
     }
 
     /**
-    * Returns the upper left x-position of the food.
-    */
+     * Returns the upper left x-position of the food.
+     */
     public double getFoodX() {
         return foodPos.getX();
     }
 
     /**
-    * Returns the upper left y-position of the food.
-    */
+     * Returns the upper left y-position of the food.
+     */
     public double getFoodY() {
         return foodPos.getY();
     }
 
     /**
-    * Generates a food randomly and adds its corresponding
-    * image to the canvas.
-    */
+     * Generates a food randomly and adds its corresponding
+     * image to the canvas.
+     */
     public void makeFood(ArrayList<SnakePiece> snake, SnakeHead head) { 
         randomlySetFoodType();
         randomlySetFoodPos(food,snake,head);
@@ -63,10 +63,10 @@ public class FoodManager {
     }
 
     /**
-    * Randomly selects a type of food, depending on the probabilty
-    * for its type to be selected (30% of the time its a bug, 70%
-    * of the time it is a fruit).
-    */
+     * Randomly selects a type of food, depending on the probabilty
+     * for its type to be selected (30% of the time its a bug, 70%
+     * of the time it is a fruit).
+     */
     private void randomlySetFoodType(){
         int randomInt = r.nextInt(100);
         if(randomInt<=30){
@@ -77,9 +77,9 @@ public class FoodManager {
     }
 
     /**
-    * Randomly sets the position of the food within the canvas and
-    * ensures it is not set on the snake. 
-    */
+     * Randomly sets the position of the food within the canvas and
+     * ensures it is not set on the snake. 
+     */
     private void randomlySetFoodPos(Food food,ArrayList<SnakePiece> snake, SnakeHead head) {
         ArrayList<Point> foodPointList = new ArrayList<Point>();
         for(Point p: gridPointList){

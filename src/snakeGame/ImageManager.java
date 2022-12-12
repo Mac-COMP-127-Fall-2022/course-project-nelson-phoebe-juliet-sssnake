@@ -13,31 +13,31 @@ public class ImageManager {
     private boolean c = true;
 
     /**
-    * Constructor for the ImageManager class.
-    **/
+     * Constructor for the ImageManager class.
+     */
     public ImageManager(String level) {
         this.level = level;
         i = 0;
     }
 
     /**
-    * Assigns a level of difficulty. 
-    */
+     * Assigns a level of difficulty. 
+     */
     public void setLevel(String level) {
         this.level = level;
     }
 
     /**
-    * Returns the level of difficulty. 
-    */
+     * Returns the level of difficulty. 
+     */
     public String getLevel() {
         return level;
     }
 
     /**
-    * Moves the snake across the canvas, allowing 
-    * for it to start over once the snake has left the screen.
-    */
+     * Moves the snake across the canvas, allowing 
+     * for it to start over once the snake has left the screen.
+     */
     public void animateSnake(GraphicsObject snake) {
         if (snake.getPosition().getX() < 650) {
             i = i + 3;
@@ -49,8 +49,8 @@ public class ImageManager {
     }
 
     /**
-    * Moves the cloud image up and down.
-    */
+     * Moves the cloud image up and down.
+     */
     public void animateCloud(GraphicsObject cloud) {
         if (c) {
             cloud.setPosition(0,cloud.getPosition().getY()+0.25);
@@ -66,23 +66,23 @@ public class ImageManager {
     }
 
     /**
-    * Returns the corresponding image of the folder and picture parameters.
-    */
+     * Returns the corresponding image of the folder and picture parameters.
+     */
     public String getImagePathString(String folder, String picture) {
         return folder + "/" + level + picture + ".png";
     }
 
     /**
-    * Returns the blue background image.
-    */
+     * Returns the blue background image.
+     */
     public String getBgImage(){
         return getImagePathString("level-backgrounds", "_bg");
     }
 
     /**
-    * Assigns the image of the snake head depending on which direction it
-    * is facing (up,down,right,left).
-    */
+     * Assigns the image of the snake head depending on which direction it
+     * is facing (up,down,right,left).
+     */
     public String getSnakeHeadImage(SnakeHead snake, String direction){
         if(direction == "up"){
             return getImagePathString("snake-parts", "snake_head_up");
@@ -99,9 +99,9 @@ public class ImageManager {
     }
 
     /**
-    * Assigns the correct snake images to the body of the snake depending
-    * on which direction the head is facing (up,down,right,left).
-    */
+     * Assigns the correct snake images to the body of the snake depending
+     * on which direction the head is facing (up,down,right,left).
+     */
     public String getSnakePieceImage(SnakePiece snake, String direction){
         if(direction == "up"){
             return getImagePathString("snake-parts", "snake_body_up");
@@ -121,9 +121,9 @@ public class ImageManager {
     }
 
     /**
-    * Assigns the correct snake end image to the rear of the body of the snake 
-    * depending on which direction the head is facing (up,down,right,left).
-    */
+     * Assigns the correct snake end image to the rear of the body of the snake 
+     * depending on which direction the head is facing (up,down,right,left).
+     */
     public String getSnakeEndImage(SnakePiece snake, String direction){
         if(direction == "up"){
             return getImagePathString("snake-parts", "snake_end_up");
@@ -143,9 +143,13 @@ public class ImageManager {
     }
 
     /**
-    * Assigns the correct curved snake image to the body of the snake where the
-    * head of the snake changes directions. 
-    */
+     * Assigns the correct curved snake image to the body of the snake where the
+     * head of the snake changes directions.
+     * 
+     * @param snake              given snake piece
+     * @param directionBefore    the direction the snake head is moving before the turn
+     * @param directionAfter     the direction the snake head is facing after the turn
+     */
     public String getSnakeCurveImage(SnakePiece snake, String directionBefore, String directionAfter){
         // down to left turn
         if (directionBefore == "down" && directionAfter == "left") {
@@ -184,8 +188,8 @@ public class ImageManager {
     }
 
     /**
-    * Returns the food image, either fruit or bug. 
-    */
+     * Returns the food image, either fruit or bug. 
+     */
     public String getFoodImage(String food){
         if(food  == "bug"){
             return getImagePathString("food", "bug");

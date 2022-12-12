@@ -35,6 +35,10 @@ public class Board {
     Image difficultyCloudImage = new Image(0, 0, "start-difficulty-gameover/difficulty-cloud.png");
 
     private Point clickPos = new Point(0, 0);
+
+    /**
+     * Constructor for the Board class.
+     */
     public Board(){
         canvas = new CanvasWindow("Snake Game", CANVAS_WIDTH, CANVAS_HEIGHT);
         gridPointList = new ArrayList<Point>();
