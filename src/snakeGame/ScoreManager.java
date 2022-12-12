@@ -22,6 +22,7 @@ public class ScoreManager {
      * Constructor for the ScoreManager class. 
      */
     public ScoreManager(CanvasWindow canvas){
+        // instance varibales
         this.canvas = canvas;
         Score = new GraphicsText("SCORE: "+score);
         Score.setPosition(160,60);
